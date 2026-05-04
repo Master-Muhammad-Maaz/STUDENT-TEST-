@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Quiz Portal - Daily Practice</title>
+    <style>
+        :root { --primary: #3498db; --success: #2ecc71; --danger: #e74c3c; --bg: #f8f9fa; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .quiz-card { background: white; padding: 2.5rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 90%; max-width: 500px; position: relative; }
+        .header { border-bottom: 2px solid #eee; margin-bottom: 20px; padding-bottom: 10px; }
+        .header h2 { margin: 0; color: var(--primary); }
+        .header p { margin: 5px 0; color: #666; font-size: 14px; }
+        .input-group { margin: 20px 0; }
+        select, input { width: 100%; padding: 12px; border-radius: 10px; border: 2px solid #ddd; font-size: 16px; box-sizing: border-box; }
+        .btn { background: var(--primary); color: white; border: none; padding: 14px; border-radius: 10px; cursor: pointer; width: 100%; font-weight: bold; font-size: 16px; margin-top: 10px; transition: 0.3s; }
+        .btn:hover { background: #2980b9; }
+        .hidden { display: none; }
+        .q-text { font-size: 24px; font-weight: bold; margin: 20px 0; color: #2c3e50; }
+        .review-item { text-align: left; background: #fff5f5; padding: 15px; margin: 10px 0; border-left: 5px solid var(--danger); border-radius: 5px; }
+        .score-box { font-size: 60px; font-weight: 800; color: var(--primary); margin: 20px 0; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-card">
+    <div id="setup-screen">
+        <div class="header">
+            <h2>Daily Quiz Portal</h2>
+            <p id="current-date"></p>
+        </div>
+        <div class="input-group">
+            <label>Student Name:</label>
+            <select id="studentName">
+                <option value="">-- Select --</option>
+                <option value="MOHAMMAD SAAD">MOHAMMAD SAAD</option>
+                <option value="MOHAMMAD ZIYAN">MOHAMMAD ZIYAN</option>
+                <option value="MOHAMMAD ZAMMAD">MOHAMMAD ZAMMAD</option>
+            </select>
+        </div>
+        <button class="btn" onclick="startQuiz()">Start Today's Test</button>
+    </div>
+
+    <div id="quiz-screen" class="hidden">
+        <div id="progress" style="color: #999; font-weight: bold;"></div>
+        <div class="q-text" id="q-text"></div>
+        <input type="number" id="user-ans" placeholder="Type Answer..." onkeypress="handleEnter(event)">
+        <button class="btn" onclick="submitAns()">Next Question</button>
+    </div>
+
+    <div id="result-screen" class="hidden">
+        <h2>Report Card</h2>
+        <p id="student-display"></p>
+        <div class="score-box" id="final-score"></div>
+        <button class="btn" onclick="toggleReview()">Show Corrections</button>
+        <button class="btn" style="background:#95a5a6;" onclick="location.reload()">Restart</button>
+    </div>
+
+    <div id="review-screen" class="hidden">
+        <h3>Mistakes Review</h3>
+        <div id="review-content"></div>
+        <button class="btn" onclick="location.reload()">Back to Main</button>
+    </div>
+</div>
+
+<script>
+    // --- DHAYAN DEIN: Sirf yahan sawal change karein har roz ---
+    const quizData = [
+        { q: "500 − 150 ÷ 5 × 4 + 20", a: 400 },
+        { q: "(36 ÷ 6 + 10) × 4", a: 64 },
+        { q: "720 ÷ 8 × 5 − 60", a: 390 },
+        { q: "(48 ÷ 6 + 12) × 5", a: 100 },
+        { q: "900 − 300 ÷ 10 × 6 + 50", a: 770 },
+        { q: "(64 ÷ 8 + 16) × 3", a: 72 },
+        { q: "840 ÷ 7 × 4 − 80", a: 400 },
+        { q: "(90 ÷ 9 + 20) × 2", a: 60 },
+        { q: "1000 − 250 ÷ 5 × 8 + 40", a: 640 },
+        { q: "(72 ÷ 8 + 18) × 4", a: 108 },
+        { q: "660 ÷ 6 × 3 − 90", a: 240 },
+        { q: "(56 ÷ 7 + 14) × 6", a: 132 },
+        { q: "480 ÷ 12 × 5 + 70", a: 270 },
+        { q: "(100 ÷ 10 + 25) × 3", a: 105 },
+        { q: "750 − 150 ÷ 3 × 4 + 30", a: 580 },
+        { q: "(84 ÷ 6 + 16) × 5", a: 150 },
+        { q: "960 ÷ 8 × 3 − 120", a: 240 },
+        { q: "(45 ÷ 5 + 35) × 2", a: 80 },
+        { q: "880 ÷ 11 × 4 + 60", a: 380 },
+        { q: "(120 ÷ 12 + 30) × 4", a: 160 }
+    ];
+
+    let currentIdx = 0, score = 0, name = "", mistakes = [];
+
+    // Set Date
+    document.getElementById('current-date').innerText = "Date: " + new Date().toLocaleDateString('en-GB');
+
+    function startQuiz() {
+        name = document.getElementById('studentName').value;
+        if (!name) return alert("Pehle naam select karein!");
+        document.getElementById('setup-screen').classList.add('hidden');
+        document.getElementById('quiz-screen').classList.remove('hidden');
+        showQ();
+    }
+
+    function showQ() {
+        document.getElementById('progress').innerText = `Question ${currentIdx + 1} of ${quizData.length}`;
+        document.getElementById('q-text').innerText = quizData[currentIdx].q;
+        document.getElementById('user-ans').value = "";
+        document.getElementById('user-ans').focus();
+    }
+
+    function submitAns() {
+        const uAns = document.getElementById('user-ans').value;
+        if (uAns === "") return;
+
+        const correct = quizData[currentIdx].a;
+        if (parseInt(uAns) === correct) {
+            score++;
+        } else {
+            mistakes.push({ q: quizData[currentIdx].q, u: uAns, c: correct });
+        }
+
+        currentIdx++;
+        if (currentIdx < quizData.length) showQ();
+        else showFinal();
+    }
+
+    function showFinal() {
+        document.getElementById('quiz-screen').classList.add('hidden');
+        document.getElementById('result-screen').classList.remove('hidden');
+        document.getElementById('student-display').innerText = "Student: " + name;
+        document.getElementById('final-score').innerText = score + "/" + quizData.length;
+    }
+
+    function toggleReview() {
+        document.getElementById('result-screen').classList.add('hidden');
+        document.getElementById('review-screen').classList.remove('hidden');
+        const box = document.getElementById('review-content');
+        box.innerHTML = mistakes.length === 0 ? "<h3>Perfect Score! Shabaash.</h3>" : "";
+        mistakes.forEach(m => {
+            box.innerHTML += `<div class="review-item"><b>${m.q}</b><br>Tumhara: <span style="text-decoration:line-through">${m.u}</span> | Sahi: <span style="color:green; font-weight:bold;">${m.c}</span></div>`;
+        });
+    }
+
+    function handleEnter(e) { if (e.key === 'Enter') submitAns(); }
+</script>
+</body>
+</html>
