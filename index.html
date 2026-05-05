@@ -3,145 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Master Quiz Portal - Daily Practice</title>
+    <title>Daily Math Quiz - Round 2</title>
     <style>
-        :root { --primary: #3498db; --success: #2ecc71; --danger: #e74c3c; --bg: #f8f9fa; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .quiz-card { background: white; padding: 2.5rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 90%; max-width: 500px; position: relative; }
-        .header { border-bottom: 2px solid #eee; margin-bottom: 20px; padding-bottom: 10px; }
-        .header h2 { margin: 0; color: var(--primary); }
-        .header p { margin: 5px 0; color: #666; font-size: 14px; }
-        .input-group { margin: 20px 0; }
-        select, input { width: 100%; padding: 12px; border-radius: 10px; border: 2px solid #ddd; font-size: 16px; box-sizing: border-box; }
-        .btn { background: var(--primary); color: white; border: none; padding: 14px; border-radius: 10px; cursor: pointer; width: 100%; font-weight: bold; font-size: 16px; margin-top: 10px; transition: 0.3s; }
-        .btn:hover { background: #2980b9; }
+        :root { --primary: #2d3436; --accent: #0984e3; --success: #00b894; --danger: #d63031; --bg: #f5f6fa; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: var(--bg); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 10px; }
+        .main-container { background: #ffffff; padding: 2rem; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); width: 100%; max-width: 450px; text-align: center; }
+        .header-section { border-bottom: 2px solid #eee; margin-bottom: 20px; padding-bottom: 15px; }
+        .date-badge { background: var(--accent); color: white; padding: 5px 15px; border-radius: 50px; font-size: 13px; display: inline-block; margin-top: 10px; font-weight: bold; }
+        select, input { width: 100%; padding: 15px; margin: 15px 0; border: 2px solid #dfe6e9; border-radius: 12px; font-size: 16px; box-sizing: border-box; outline: none; }
+        .btn-action { background: var(--accent); color: white; border: none; padding: 15px; width: 100%; border-radius: 12px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn-action:hover { background: #0771c1; }
         .hidden { display: none; }
-        .q-text { font-size: 24px; font-weight: bold; margin: 20px 0; color: #2c3e50; }
-        .review-item { text-align: left; background: #fff5f5; padding: 15px; margin: 10px 0; border-left: 5px solid var(--danger); border-radius: 5px; }
-        .score-box { font-size: 60px; font-weight: 800; color: var(--primary); margin: 20px 0; }
+        .q-display { font-size: 26px; font-weight: 800; margin: 25px 0; color: #2d3436; }
+        .result-score { font-size: 70px; font-weight: 900; color: var(--accent); margin: 15px 0; }
+        .review-box { text-align: left; max-height: 300px; overflow-y: auto; margin-top: 20px; }
+        .review-card { background: #fffafa; padding: 12px; margin-bottom: 10px; border-left: 5px solid var(--danger); border-radius: 8px; font-size: 14px; }
     </style>
 </head>
 <body>
 
-<div class="quiz-card">
-    <div id="setup-screen">
-        <div class="header">
-            <h2>Daily Quiz Portal</h2>
-            <p id="current-date"></p>
+<div class="main-container">
+    <div id="start-screen">
+        <div class="header-section">
+            <h1 style="font-size: 22px; margin:0;">Daily Math Practice</h1>
+            <div class="date-badge" id="live-date"></div>
         </div>
-        <div class="input-group">
-            <label>Student Name:</label>
-            <select id="studentName">
-                <option value="">-- Select --</option>
-                <option value="MOHAMMAD SAAD">MOHAMMAD SAAD</option>
-                <option value="MOHAMMAD ZIYAN">MOHAMMAD ZIYAN</option>
-                <option value="MOHAMMAD ZAMMAD">MOHAMMAD ZAMMAD</option>
-            </select>
-        </div>
-        <button class="btn" onclick="startQuiz()">Start Today's Test</button>
+        <select id="userName">
+            <option value="">-- Apna Naam Chunain --</option>
+            <option value="MOHAMMAD SAAD">MOHAMMAD SAAD</option>
+            <option value="MOHAMMAD ZIYAN">MOHAMMAD ZIYAN</option>
+            <option value="MOHAMMAD ZAMMAD">MOHAMMAD ZAMMAD</option>
+        </select>
+        <button class="btn-action" onclick="initQuiz()">Start Today's Quiz</button>
     </div>
 
     <div id="quiz-screen" class="hidden">
-        <div id="progress" style="color: #999; font-weight: bold;"></div>
-        <div class="q-text" id="q-text"></div>
-        <input type="number" id="user-ans" placeholder="Type Answer..." onkeypress="handleEnter(event)">
-        <button class="btn" onclick="submitAns()">Next Question</button>
+        <div id="q-counter" style="color: #b2bec3; font-weight: bold; font-size: 12px;"></div>
+        <div class="q-display" id="q-text"></div>
+        <input type="number" id="answer-field" placeholder="Answer likhein..." autocomplete="off" inputmode="numeric">
+        <button class="btn-action" onclick="handleNext()">Next Question</button>
     </div>
 
     <div id="result-screen" class="hidden">
-        <h2>Report Card</h2>
-        <p id="student-display"></p>
-        <div class="score-box" id="final-score"></div>
-        <button class="btn" onclick="toggleReview()">Show Corrections</button>
-        <button class="btn" style="background:#95a5a6;" onclick="location.reload()">Restart</button>
+        <h2 id="student-title" style="margin-bottom:0;"></h2>
+        <div class="result-score" id="score-text"></div>
+        <p style="font-weight: bold; color: #636e72;">Aaj ka Total Result</p>
+        <button class="btn-action" onclick="showCorrections()">Review Mistakes</button>
+        <button class="btn-action" style="background:#636e72; margin-top:10px;" onclick="location.reload()">Restart</button>
     </div>
 
     <div id="review-screen" class="hidden">
         <h3>Mistakes Review</h3>
-        <div id="review-content"></div>
-        <button class="btn" onclick="location.reload()">Back to Main</button>
+        <div id="review-list" class="review-box"></div>
+        <button class="btn-action" onclick="location.reload()">Back to Home</button>
     </div>
 </div>
 
 <script>
-    // --- DHAYAN DEIN: Sirf yahan sawal change karein har roz ---
+    // --- NAYE SAWAL UPDATE KAR DIYE GAYE HAIN ---
     const quizItems = [
-    { q: "640 − 160 ÷ 8 × 5 + 30", a: 570 },
-    { q: "(72 ÷ 9 + 16) × 4", a: 96 },
-    { q: "810 ÷ 9 × 6 − 70", a: 470 },
-    { q: "(54 ÷ 6 + 18) × 5", a: 135 },
-    { q: "950 − 350 ÷ 7 × 6 + 40", a: 690 },
-    { q: "(81 ÷ 9 + 25) × 3", a: 102 },
-    { q: "720 ÷ 8 × 4 − 90", a: 270 },
-    { q: "(100 ÷ 10 + 30) × 2", a: 80 },
-    { q: "1100 − 400 ÷ 8 × 5 + 60", a: 910 },
-    { q: "(96 ÷ 12 + 20) × 4", a: 112 },
-    { q: "700 ÷ 7 × 5 − 120", a: 380 },
-    { q: "(63 ÷ 7 + 21) × 6", a: 180 },
-    { q: "540 ÷ 9 × 6 + 80", a: 440 },
-    { q: "(120 ÷ 12 + 40) × 3", a: 150 },
-    { q: "880 − 240 ÷ 6 × 5 + 50", a: 730 },
-    { q: "(90 ÷ 10 + 35) × 4", a: 176 },
-    { q: "1020 ÷ 10 × 3 − 150", a: 156 },
-    { q: "(84 ÷ 7 + 28) × 5", a: 200 },
-    { q: "960 ÷ 12 × 4 + 70", a: 390 },
-    { q: "(150 ÷ 15 + 45) × 2", a: 110 }
-];
+        { q: "640 − 160 ÷ 8 × 5 + 30", a: 570 },
+        { q: "(72 ÷ 9 + 16) × 4", a: 96 },
+        { q: "810 ÷ 9 × 6 − 70", a: 470 },
+        { q: "(54 ÷ 6 + 18) × 5", a: 135 },
+        { q: "950 − 350 ÷ 7 × 6 + 40", a: 690 },
+        { q: "(81 ÷ 9 + 25) × 3", a: 102 },
+        { q: "720 ÷ 8 × 4 − 90", a: 270 },
+        { q: "(100 ÷ 10 + 30) × 2", a: 80 },
+        { q: "1100 − 400 ÷ 8 × 5 + 60", a: 910 },
+        { q: "(96 ÷ 12 + 20) × 4", a: 112 },
+        { q: "700 ÷ 7 × 5 − 120", a: 380 },
+        { q: "(63 ÷ 7 + 21) × 6", a: 180 },
+        { q: "540 ÷ 9 × 6 + 80", a: 440 },
+        { q: "(120 ÷ 12 + 40) × 3", a: 150 },
+        { q: "880 − 240 ÷ 6 × 5 + 50", a: 730 },
+        { q: "(90 ÷ 10 + 35) × 4", a: 176 },
+        { q: "1020 ÷ 10 × 3 − 150", a: 156 },
+        { q: "(84 ÷ 7 + 28) × 5", a: 200 },
+        { q: "960 ÷ 12 × 4 + 70", a: 390 },
+        { q: "(150 ÷ 15 + 45) × 2", a: 110 }
+    ];
 
-    let currentIdx = 0, score = 0, name = "", mistakes = [];
+    let current = 0, points = 0, uName = "", errors = [];
+    document.getElementById('live-date').innerText = "📅 " + new Date().toLocaleDateString('en-GB');
 
-    // Set Date
-    document.getElementById('current-date').innerText = "Date: " + new Date().toLocaleDateString('en-GB');
-
-    function startQuiz() {
-        name = document.getElementById('studentName').value;
-        if (!name) return alert("Pehle naam select karein!");
-        document.getElementById('setup-screen').classList.add('hidden');
+    function initQuiz() {
+        uName = document.getElementById('userName').value;
+        if (!uName) return alert("Bhai, pehle naam select karein!");
+        document.getElementById('start-screen').classList.add('hidden');
         document.getElementById('quiz-screen').classList.remove('hidden');
-        showQ();
+        loadQ();
     }
 
-    function showQ() {
-        document.getElementById('progress').innerText = `Question ${currentIdx + 1} of ${quizData.length}`;
-        document.getElementById('q-text').innerText = quizData[currentIdx].q;
-        document.getElementById('user-ans').value = "";
-        document.getElementById('user-ans').focus();
+    function loadQ() {
+        document.getElementById('q-counter').innerText = `QUESTION ${current + 1} / ${quizItems.length}`;
+        document.getElementById('q-text').innerText = quizItems[current].q;
+        document.getElementById('answer-field').value = "";
+        document.getElementById('answer-field').focus();
     }
 
-    function submitAns() {
-        const uAns = document.getElementById('user-ans').value;
-        if (uAns === "") return;
-
-        const correct = quizData[currentIdx].a;
-        if (parseInt(uAns) === correct) {
-            score++;
-        } else {
-            mistakes.push({ q: quizData[currentIdx].q, u: uAns, c: correct });
-        }
-
-        currentIdx++;
-        if (currentIdx < quizData.length) showQ();
+    function handleNext() {
+        const val = document.getElementById('answer-field').value;
+        if (val === "") return;
+        if (parseInt(val) === quizItems[current].a) { points++; } 
+        else { errors.push({ q: quizItems[current].q, u: val, c: quizItems[current].a }); }
+        current++;
+        if (current < quizItems.length) loadQ();
         else showFinal();
     }
 
     function showFinal() {
         document.getElementById('quiz-screen').classList.add('hidden');
         document.getElementById('result-screen').classList.remove('hidden');
-        document.getElementById('student-display').innerText = "Student: " + name;
-        document.getElementById('final-score').innerText = score + "/" + quizData.length;
+        document.getElementById('student-title').innerText = uName;
+        document.getElementById('score-text').innerText = points + "/" + quizItems.length;
     }
 
-    function toggleReview() {
+    function showCorrections() {
         document.getElementById('result-screen').classList.add('hidden');
         document.getElementById('review-screen').classList.remove('hidden');
-        const box = document.getElementById('review-content');
-        box.innerHTML = mistakes.length === 0 ? "<h3>Perfect Score! Shabaash.</h3>" : "";
-        mistakes.forEach(m => {
-            box.innerHTML += `<div class="review-item"><b>${m.q}</b><br>Tumhara: <span style="text-decoration:line-through">${m.u}</span> | Sahi: <span style="color:green; font-weight:bold;">${m.c}</span></div>`;
+        const list = document.getElementById('review-list');
+        list.innerHTML = errors.length === 0 ? "<h3 style='text-align:center; color:green;'>Zero Mistakes! Shabaash!</h3>" : "";
+        errors.forEach(e => {
+            list.innerHTML += `<div class="review-card"><strong>${e.q}</strong><br>Aapka Jawab: ${e.u} | <span style="color:green;">Sahi Jawab: ${e.c}</span></div>`;
         });
     }
 
-    function handleEnter(e) { if (e.key === 'Enter') submitAns(); }
+    document.getElementById('answer-field').addEventListener('keypress', (e) => { if (e.key === 'Enter') handleNext(); });
 </script>
 </body>
 </html>
