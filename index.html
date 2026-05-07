@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Math Practice - New Round</title>
+    <title>Daily Math Practice - Pass/Fail Edition</title>
     <style>
         :root { --primary: #2d3436; --accent: #0984e3; --success: #00b894; --danger: #d63031; --bg: #f5f6fa; }
         body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: var(--bg); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 10px; }
@@ -15,7 +15,8 @@
         .btn-action:hover { background: #0771c1; }
         .hidden { display: none; }
         .q-display { font-size: 26px; font-weight: 800; margin: 25px 0; color: #2d3436; }
-        .result-score { font-size: 70px; font-weight: 900; color: var(--accent); margin: 15px 0; }
+        .result-score { font-size: 70px; font-weight: 900; margin: 15px 0; }
+        .status-tag { font-size: 24px; font-weight: bold; padding: 10px; border-radius: 10px; margin-top: 10px; }
         .review-box { text-align: left; max-height: 300px; overflow-y: auto; margin-top: 20px; }
         .review-card { background: #fffafa; padding: 12px; margin-bottom: 10px; border-left: 5px solid var(--danger); border-radius: 8px; font-size: 14px; }
     </style>
@@ -40,15 +41,15 @@
     <div id="quiz-screen" class="hidden">
         <div id="q-counter" style="color: #b2bec3; font-weight: bold; font-size: 12px;"></div>
         <div class="q-display" id="q-text"></div>
-        <input type="number" id="answer-field" placeholder="Jawab likhein..." autocomplete="off" inputmode="numeric">
+        <input type="number" id="answer-field" placeholder="Jawab..." autocomplete="off" inputmode="numeric">
         <button class="btn-action" onclick="handleNext()">Next</button>
     </div>
 
     <div id="result-screen" class="hidden">
-        <h2 id="student-title" style="margin-bottom:0;"></h2>
+        <h2 id="student-title" style="margin-bottom:5px;"></h2>
+        <div id="pass-fail-tag" class="status-tag"></div>
         <div class="result-score" id="score-text"></div>
-        <p style="font-weight: bold; color: #636e72;">Aaj ka Total Score</p>
-        <button class="btn-action" onclick="showCorrections()">Check Mistakes</button>
+        <button class="btn-action" onclick="showCorrections()">Review Mistakes</button>
         <button class="btn-action" style="background:#636e72; margin-top:10px;" onclick="location.reload()">Restart</button>
     </div>
 
@@ -60,7 +61,6 @@
 </div>
 
 <script>
-    // --- LATEST QUESTIONS UPDATED ---
     const quizItems = [
         { q: "720 − 180 ÷ 9 × 6 + 40", a: 640 },
         { q: "(84 ÷ 7 + 22) × 3", a: 102 },
@@ -110,8 +110,24 @@
     function showFinal() {
         document.getElementById('quiz-screen').classList.add('hidden');
         document.getElementById('result-screen').classList.remove('hidden');
-        document.getElementById('student-title').innerText = uName;
-        document.getElementById('score-text').innerText = points + "/" + quizItems.length;
+        
+        const statusTag = document.getElementById('pass-fail-tag');
+        const scoreText = document.getElementById('score-text');
+        
+        // Agar 5 ya usse zyada galtiyan hain (errors.length >= 5)
+        if (errors.length >= 5) {
+            document.getElementById('student-title').innerText = uName + " - FAILED ❌";
+            statusTag.innerText = "Need Improvement!";
+            statusTag.style.color = "var(--danger)";
+            scoreText.style.color = "var(--danger)";
+        } else {
+            document.getElementById('student-title').innerText = uName + " - PASSED ✅";
+            statusTag.innerText = "Great Job!";
+            statusTag.style.color = "var(--success)";
+            scoreText.style.color = "var(--success)";
+        }
+        
+        scoreText.innerText = points + "/" + quizItems.length;
     }
 
     function showCorrections() {
