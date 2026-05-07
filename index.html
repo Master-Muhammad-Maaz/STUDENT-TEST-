@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Math Practice - Pass/Fail Edition</title>
+    <title>Daily Math Practice - Master Round</title>
     <style>
         :root { --primary: #2d3436; --accent: #0984e3; --success: #00b894; --danger: #d63031; --bg: #f5f6fa; }
         body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: var(--bg); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 10px; }
@@ -14,9 +14,9 @@
         .btn-action { background: var(--accent); color: white; border: none; padding: 15px; width: 100%; border-radius: 12px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; }
         .btn-action:hover { background: #0771c1; }
         .hidden { display: none; }
-        .q-display { font-size: 26px; font-weight: 800; margin: 25px 0; color: #2d3436; }
-        .result-score { font-size: 70px; font-weight: 900; margin: 15px 0; }
-        .status-tag { font-size: 24px; font-weight: bold; padding: 10px; border-radius: 10px; margin-top: 10px; }
+        .q-display { font-size: 24px; font-weight: 800; margin: 25px 0; color: #2d3436; line-height: 1.4; }
+        .result-score { font-size: 60px; font-weight: 900; margin: 10px 0; }
+        .status-tag { font-size: 22px; font-weight: bold; margin-bottom: 10px; }
         .review-box { text-align: left; max-height: 300px; overflow-y: auto; margin-top: 20px; }
         .review-card { background: #fffafa; padding: 12px; margin-bottom: 10px; border-left: 5px solid var(--danger); border-radius: 8px; font-size: 14px; }
     </style>
@@ -35,13 +35,13 @@
             <option value="MOHAMMAD ZIYAN">MOHAMMAD ZIYAN</option>
             <option value="MOHAMMAD ZAMMAD">MOHAMMAD ZAMMAD</option>
         </select>
-        <button class="btn-action" onclick="initQuiz()">Start Quiz</button>
+        <button class="btn-action" onclick="initQuiz()">Start Round</button>
     </div>
 
     <div id="quiz-screen" class="hidden">
         <div id="q-counter" style="color: #b2bec3; font-weight: bold; font-size: 12px;"></div>
         <div class="q-display" id="q-text"></div>
-        <input type="number" id="answer-field" placeholder="Jawab..." autocomplete="off" inputmode="numeric">
+        <input type="number" id="answer-field" placeholder="Type Answer..." autocomplete="off" inputmode="numeric">
         <button class="btn-action" onclick="handleNext()">Next</button>
     </div>
 
@@ -56,27 +56,32 @@
     <div id="review-screen" class="hidden">
         <h3>Mistakes Review</h3>
         <div id="review-list" class="review-box"></div>
-        <button class="btn-action" onclick="location.reload()">Home Page</button>
+        <button class="btn-action" onclick="location.reload()">Back to Home</button>
     </div>
 </div>
 
 <script>
     const quizItems = [
-        { q: "720 − 180 ÷ 9 × 6 + 40", a: 640 },
-        { q: "(84 ÷ 7 + 22) × 3", a: 102 },
-        { q: "960 ÷ 12 × 5 − 80", a: 320 },
-        { q: "(66 ÷ 6 + 24) × 4", a: 140 },
-        { q: "1000 − 320 ÷ 8 × 7 + 60", a: 780 },
-        { q: "(108 ÷ 12 + 30) × 2", a: 78 },
-        { q: "840 ÷ 7 × 3 − 110", a: 250 },
-        { q: "(95 ÷ 5 + 40) × 3", a: 177 },
-        { q: "1200 − 450 ÷ 9 × 6 + 90", a: 990 },
-        { q: "(144 ÷ 12 + 36) × 4", a: 192 },
-        { q: "780 ÷ 6 × 4 − 130", a: 390 },
-        { q: "(70 ÷ 7 + 50) × 2", a: 120 },
-        { q: "660 ÷ 11 × 5 + 100", a: 400 },
-        { q: "(135 ÷ 9 + 45) × 3", a: 180 },
-        { q: "920 − 280 ÷ 7 × 6 + 80", a: 760 }
+        { q: "920 − 280 ÷ 7 × 6 + 80", a: 760 },
+        { q: "(126 ÷ 14 + 55) × 2", a: 128 },
+        { q: "1080 ÷ 9 × 2 − 160", a: 80 },
+        { q: "(160 ÷ 8 + 60) × 3", a: 240 },
+        { q: "840 ÷ 12 × 6 + 120", a: 540 },
+        { q: "(200 ÷ 10 + 75) × 2", a: 190 },
+        { q: "1500 − 360 ÷ 9 × 5 + 70", a: 1370 },
+        { q: "(144 ÷ 12 + 48) × 3", a: 180 },
+        { q: "1260 ÷ 14 × 4 − 180", a: 180 },
+        { q: "(225 ÷ 15 + 65) × 2", a: 160 },
+        { q: "980 ÷ 7 × 3 + 150", a: 570 },
+        { q: "(180 ÷ 9 + 72) × 4", a: 368 },
+        { q: "1750 − 420 ÷ 7 × 8 + 90", a: 1360 },
+        { q: "(256 ÷ 16 + 84) × 5", a: 500 },
+        { q: "1320 ÷ 11 × 5 − 240", a: 360 },
+        { q: "(300 ÷ 15 + 95) × 3", a: 345 },
+        { q: "1680 ÷ 12 × 4 + 210", a: 770 },
+        { q: "(196 ÷ 14 + 88) × 2", a: 204 },
+        { q: "2100 − 540 ÷ 9 × 6 + 120", a: 1860 },
+        { q: "(400 ÷ 20 + 125) × 4", a: 580 }
     ];
 
     let current = 0, points = 0, uName = "", errors = [];
@@ -84,7 +89,7 @@
 
     function initQuiz() {
         uName = document.getElementById('userName').value;
-        if (!uName) return alert("Pehle naam select karein!");
+        if (!uName) return alert("Please select a name!");
         document.getElementById('start-screen').classList.add('hidden');
         document.getElementById('quiz-screen').classList.remove('hidden');
         loadQ();
@@ -110,31 +115,29 @@
     function showFinal() {
         document.getElementById('quiz-screen').classList.add('hidden');
         document.getElementById('result-screen').classList.remove('hidden');
+        const tag = document.getElementById('pass-fail-tag');
+        const score = document.getElementById('score-text');
         
-        const statusTag = document.getElementById('pass-fail-tag');
-        const scoreText = document.getElementById('score-text');
-        
-        // Agar 5 ya usse zyada galtiyan hain (errors.length >= 5)
+        // Fail logic: 5 or more mistakes
         if (errors.length >= 5) {
             document.getElementById('student-title').innerText = uName + " - FAILED ❌";
-            statusTag.innerText = "Need Improvement!";
-            statusTag.style.color = "var(--danger)";
-            scoreText.style.color = "var(--danger)";
+            tag.innerText = "Kafi galtiyan hain! Aur mehnat karo.";
+            tag.style.color = "var(--danger)";
+            score.style.color = "var(--danger)";
         } else {
             document.getElementById('student-title').innerText = uName + " - PASSED ✅";
-            statusTag.innerText = "Great Job!";
-            statusTag.style.color = "var(--success)";
-            scoreText.style.color = "var(--success)";
+            tag.innerText = "Shabaash! Boht acha result hai.";
+            tag.style.color = "var(--success)";
+            score.style.color = "var(--success)";
         }
-        
-        scoreText.innerText = points + "/" + quizItems.length;
+        score.innerText = points + "/" + quizItems.length;
     }
 
     function showCorrections() {
         document.getElementById('result-screen').classList.add('hidden');
         document.getElementById('review-screen').classList.remove('hidden');
         const list = document.getElementById('review-list');
-        list.innerHTML = errors.length === 0 ? "<h3 style='text-align:center; color:green;'>Zero Mistakes! Shabaash.</h3>" : "";
+        list.innerHTML = errors.length === 0 ? "<h3 style='text-align:center; color:green;'>Zero Mistakes! You are a genius.</h3>" : "";
         errors.forEach(e => {
             list.innerHTML += `<div class="review-card"><strong>${e.q}</strong><br>Aapka: ${e.u} | <span style="color:green; font-weight:bold;">Sahi: ${e.c}</span></div>`;
         });
