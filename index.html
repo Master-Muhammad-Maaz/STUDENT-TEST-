@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Math Quiz - Round 2</title>
+    <title>Daily Math Practice - New Round</title>
     <style>
         :root { --primary: #2d3436; --accent: #0984e3; --success: #00b894; --danger: #d63031; --bg: #f5f6fa; }
         body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: var(--bg); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 10px; }
@@ -34,54 +34,49 @@
             <option value="MOHAMMAD ZIYAN">MOHAMMAD ZIYAN</option>
             <option value="MOHAMMAD ZAMMAD">MOHAMMAD ZAMMAD</option>
         </select>
-        <button class="btn-action" onclick="initQuiz()">Start Today's Quiz</button>
+        <button class="btn-action" onclick="initQuiz()">Start Quiz</button>
     </div>
 
     <div id="quiz-screen" class="hidden">
         <div id="q-counter" style="color: #b2bec3; font-weight: bold; font-size: 12px;"></div>
         <div class="q-display" id="q-text"></div>
-        <input type="number" id="answer-field" placeholder="Answer likhein..." autocomplete="off" inputmode="numeric">
-        <button class="btn-action" onclick="handleNext()">Next Question</button>
+        <input type="number" id="answer-field" placeholder="Jawab likhein..." autocomplete="off" inputmode="numeric">
+        <button class="btn-action" onclick="handleNext()">Next</button>
     </div>
 
     <div id="result-screen" class="hidden">
         <h2 id="student-title" style="margin-bottom:0;"></h2>
         <div class="result-score" id="score-text"></div>
-        <p style="font-weight: bold; color: #636e72;">Aaj ka Total Result</p>
-        <button class="btn-action" onclick="showCorrections()">Review Mistakes</button>
+        <p style="font-weight: bold; color: #636e72;">Aaj ka Total Score</p>
+        <button class="btn-action" onclick="showCorrections()">Check Mistakes</button>
         <button class="btn-action" style="background:#636e72; margin-top:10px;" onclick="location.reload()">Restart</button>
     </div>
 
     <div id="review-screen" class="hidden">
         <h3>Mistakes Review</h3>
         <div id="review-list" class="review-box"></div>
-        <button class="btn-action" onclick="location.reload()">Back to Home</button>
+        <button class="btn-action" onclick="location.reload()">Home Page</button>
     </div>
 </div>
 
 <script>
-    // --- NAYE SAWAL UPDATE KAR DIYE GAYE HAIN ---
+    // --- LATEST QUESTIONS UPDATED ---
     const quizItems = [
-        { q: "640 − 160 ÷ 8 × 5 + 30", a: 570 },
-        { q: "(72 ÷ 9 + 16) × 4", a: 96 },
-        { q: "810 ÷ 9 × 6 − 70", a: 470 },
-        { q: "(54 ÷ 6 + 18) × 5", a: 135 },
-        { q: "950 − 350 ÷ 7 × 6 + 40", a: 690 },
-        { q: "(81 ÷ 9 + 25) × 3", a: 102 },
-        { q: "720 ÷ 8 × 4 − 90", a: 270 },
-        { q: "(100 ÷ 10 + 30) × 2", a: 80 },
-        { q: "1100 − 400 ÷ 8 × 5 + 60", a: 910 },
-        { q: "(96 ÷ 12 + 20) × 4", a: 112 },
-        { q: "700 ÷ 7 × 5 − 120", a: 380 },
-        { q: "(63 ÷ 7 + 21) × 6", a: 180 },
-        { q: "540 ÷ 9 × 6 + 80", a: 440 },
-        { q: "(120 ÷ 12 + 40) × 3", a: 150 },
-        { q: "880 − 240 ÷ 6 × 5 + 50", a: 730 },
-        { q: "(90 ÷ 10 + 35) × 4", a: 176 },
-        { q: "1020 ÷ 10 × 3 − 150", a: 156 },
-        { q: "(84 ÷ 7 + 28) × 5", a: 200 },
-        { q: "960 ÷ 12 × 4 + 70", a: 390 },
-        { q: "(150 ÷ 15 + 45) × 2", a: 110 }
+        { q: "720 − 180 ÷ 9 × 6 + 40", a: 640 },
+        { q: "(84 ÷ 7 + 22) × 3", a: 102 },
+        { q: "960 ÷ 12 × 5 − 80", a: 320 },
+        { q: "(66 ÷ 6 + 24) × 4", a: 140 },
+        { q: "1000 − 320 ÷ 8 × 7 + 60", a: 780 },
+        { q: "(108 ÷ 12 + 30) × 2", a: 78 },
+        { q: "840 ÷ 7 × 3 − 110", a: 250 },
+        { q: "(95 ÷ 5 + 40) × 3", a: 177 },
+        { q: "1200 − 450 ÷ 9 × 6 + 90", a: 990 },
+        { q: "(144 ÷ 12 + 36) × 4", a: 192 },
+        { q: "780 ÷ 6 × 4 − 130", a: 390 },
+        { q: "(70 ÷ 7 + 50) × 2", a: 120 },
+        { q: "660 ÷ 11 × 5 + 100", a: 400 },
+        { q: "(135 ÷ 9 + 45) × 3", a: 180 },
+        { q: "920 − 280 ÷ 7 × 6 + 80", a: 760 }
     ];
 
     let current = 0, points = 0, uName = "", errors = [];
@@ -89,14 +84,14 @@
 
     function initQuiz() {
         uName = document.getElementById('userName').value;
-        if (!uName) return alert("Bhai, pehle naam select karein!");
+        if (!uName) return alert("Pehle naam select karein!");
         document.getElementById('start-screen').classList.add('hidden');
         document.getElementById('quiz-screen').classList.remove('hidden');
         loadQ();
     }
 
     function loadQ() {
-        document.getElementById('q-counter').innerText = `QUESTION ${current + 1} / ${quizItems.length}`;
+        document.getElementById('q-counter').innerText = `STEP ${current + 1} / ${quizItems.length}`;
         document.getElementById('q-text').innerText = quizItems[current].q;
         document.getElementById('answer-field').value = "";
         document.getElementById('answer-field').focus();
@@ -123,9 +118,9 @@
         document.getElementById('result-screen').classList.add('hidden');
         document.getElementById('review-screen').classList.remove('hidden');
         const list = document.getElementById('review-list');
-        list.innerHTML = errors.length === 0 ? "<h3 style='text-align:center; color:green;'>Zero Mistakes! Shabaash!</h3>" : "";
+        list.innerHTML = errors.length === 0 ? "<h3 style='text-align:center; color:green;'>Zero Mistakes! Shabaash.</h3>" : "";
         errors.forEach(e => {
-            list.innerHTML += `<div class="review-card"><strong>${e.q}</strong><br>Aapka Jawab: ${e.u} | <span style="color:green;">Sahi Jawab: ${e.c}</span></div>`;
+            list.innerHTML += `<div class="review-card"><strong>${e.q}</strong><br>Aapka: ${e.u} | <span style="color:green; font-weight:bold;">Sahi: ${e.c}</span></div>`;
         });
     }
 
