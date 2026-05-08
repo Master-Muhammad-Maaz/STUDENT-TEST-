@@ -1,149 +1,258 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ur" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Math Practice - Master Round</title>
+    <title>محبت کیا ہے؟ - بچوں کے لیے ایک پیارا سبق</title>
     <style>
-        :root { --primary: #2d3436; --accent: #0984e3; --success: #00b894; --danger: #d63031; --bg: #f5f6fa; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: var(--bg); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 10px; }
-        .main-container { background: #ffffff; padding: 2rem; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); width: 100%; max-width: 450px; text-align: center; }
-        .header-section { border-bottom: 2px solid #eee; margin-bottom: 20px; padding-bottom: 15px; }
-        .date-badge { background: var(--accent); color: white; padding: 5px 15px; border-radius: 50px; font-size: 13px; display: inline-block; margin-top: 10px; font-weight: bold; }
-        select, input { width: 100%; padding: 15px; margin: 15px 0; border: 2px solid #dfe6e9; border-radius: 12px; font-size: 16px; box-sizing: border-box; outline: none; }
-        .btn-action { background: var(--accent); color: white; border: none; padding: 15px; width: 100%; border-radius: 12px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        .btn-action:hover { background: #0771c1; }
-        .hidden { display: none; }
-        .q-display { font-size: 24px; font-weight: 800; margin: 25px 0; color: #2d3436; line-height: 1.4; }
-        .result-score { font-size: 60px; font-weight: 900; margin: 10px 0; }
-        .status-tag { font-size: 22px; font-weight: bold; margin-bottom: 10px; }
-        .review-box { text-align: left; max-height: 300px; overflow-y: auto; margin-top: 20px; }
-        .review-card { background: #fffafa; padding: 12px; margin-bottom: 10px; border-left: 5px solid var(--danger); border-radius: 8px; font-size: 14px; }
+        /* جادوئی اور دوستانہ فونٹس اور رنگ */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400..700&family=Baloo+2:wght@500;700&display=swap');
+
+        body {
+            font-family: 'Noto Nastaliq Urdu', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f9ff;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            line-height: 2;
+        }
+
+        /* مین کنٹینر */
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            border: 5px solid #ffccd5;
+        }
+
+        /* ہیڈر اسٹائل */
+        header {
+            text-align: center;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            padding: 30px;
+            border-radius: 20px;
+            color: #fff;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(255, 154, 158, 0.4);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin: 0 0 10px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin: 0;
+            font-weight: bold;
+        }
+
+        /* تعارف */
+        .intro {
+            font-size: 1.2rem;
+            text-align: center;
+            background-color: #fff0f3;
+            padding: 20px;
+            border-radius: 15px;
+            border-right: 5px solid #ff4d6d;
+            margin-bottom: 40px;
+        }
+
+        /* کہانیوں کے سیکشنز */
+        .story-card {
+            background: #fff;
+            border: 2px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 40px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.02);
+            overflow: hidden;
+        }
+
+        .story-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.05);
+        }
+
+        .story-title {
+            color: #ff4d6d;
+            border-bottom: 2px dashed #ffccd5;
+            padding-bottom: 10px;
+            margin-top: 0;
+            font-size: 1.6rem;
+        }
+
+        /* تصاویر کے لیے اسٹائل */
+        .story-image {
+            width: 100%;
+            height: auto;
+            max-height: 350px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin: 15px 0;
+            border: 3px solid #ffccd5;
+        }
+
+        /* سبق کا بلاک (Blockquote) */
+        blockquote {
+            background-color: #f0fdf4;
+            border-right: 5px solid #22c55e;
+            margin: 20px 0 0 0;
+            padding: 15px 20px;
+            border-radius: 10px;
+            color: #15803d;
+            font-size: 1.1rem;
+        }
+
+        blockquote strong {
+            color: #166534;
+        }
+
+        /* روزانہ کا کام (عملی نکات) */
+        .daily-tasks {
+            background-color: #fef9c3;
+            border: 3px dashed #eab308;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 40px;
+        }
+
+        .daily-tasks h2 {
+            color: #ca8a04;
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .daily-tasks ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .daily-tasks li {
+            position: relative;
+            padding-right: 30px;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .daily-tasks li::before {
+            content: "⭐";
+            position: absolute;
+            right: 0;
+            top: 2px;
+        }
+
+        /* خلاصہ اور سوال کا خانہ */
+        .summary-box {
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            border: 2px solid #7dd3fc;
+        }
+
+        .summary-box h3 {
+            color: #0369a1;
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+
+        .question-box {
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 15px;
+            margin-top: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-top: 4px solid #0284c7;
+        }
+
+        /* موبائل کے لیے ریسپونسیو ڈیزائن */
+        @media (max-width: 600px) {
+            .container {
+                margin: 10px;
+                padding: 15px;
+                border-radius: 15px;
+            }
+            header h1 {
+                font-size: 1.8rem;
+            }
+            .story-title {
+                font-size: 1.3rem;
+            }
+        }
     </style>
 </head>
 <body>
 
-<div class="main-container">
-    <div id="start-screen">
-        <div class="header-section">
-            <h1 style="font-size: 22px; margin:0;">Daily Math Practice</h1>
-            <div class="date-badge" id="live-date"></div>
-        </div>
-        <select id="userName">
-            <option value="">-- Apna Naam Chunain --</option>
-            <option value="MOHAMMAD SAAD">MOHAMMAD SAAD</option>
-            <option value="MOHAMMAD ZIYAN">MOHAMMAD ZIYAN</option>
-            <option value="MOHAMMAD ZAMMAD">MOHAMMAD ZAMMAD</option>
-        </select>
-        <button class="btn-action" onclick="initQuiz()">Start Round</button>
-    </div>
-
-    <div id="quiz-screen" class="hidden">
-        <div id="q-counter" style="color: #b2bec3; font-weight: bold; font-size: 12px;"></div>
-        <div class="q-display" id="q-text"></div>
-        <input type="number" id="answer-field" placeholder="Type Answer..." autocomplete="off" inputmode="numeric">
-        <button class="btn-action" onclick="handleNext()">Next</button>
-    </div>
-
-    <div id="result-screen" class="hidden">
-        <h2 id="student-title" style="margin-bottom:5px;"></h2>
-        <div id="pass-fail-tag" class="status-tag"></div>
-        <div class="result-score" id="score-text"></div>
-        <button class="btn-action" onclick="showCorrections()">Review Mistakes</button>
-        <button class="btn-action" style="background:#636e72; margin-top:10px;" onclick="location.reload()">Restart</button>
-    </div>
-
-    <div id="review-screen" class="hidden">
-        <h3>Mistakes Review</h3>
-        <div id="review-list" class="review-box"></div>
-        <button class="btn-action" onclick="location.reload()">Back to Home</button>
-    </div>
-</div>
-
-<script>
-    const quizItems = [
-        { q: "920 − 280 ÷ 7 × 6 + 80", a: 760 },
-        { q: "(126 ÷ 14 + 55) × 2", a: 128 },
-        { q: "1080 ÷ 9 × 2 − 160", a: 80 },
-        { q: "(160 ÷ 8 + 60) × 3", a: 240 },
-        { q: "840 ÷ 12 × 6 + 120", a: 540 },
-        { q: "(200 ÷ 10 + 75) × 2", a: 190 },
-        { q: "1500 − 360 ÷ 9 × 5 + 70", a: 1370 },
-        { q: "(144 ÷ 12 + 48) × 3", a: 180 },
-        { q: "1260 ÷ 14 × 4 − 180", a: 180 },
-        { q: "(225 ÷ 15 + 65) × 2", a: 160 },
-        { q: "980 ÷ 7 × 3 + 150", a: 570 },
-        { q: "(180 ÷ 9 + 72) × 4", a: 368 },
-        { q: "1750 − 420 ÷ 7 × 8 + 90", a: 1360 },
-        { q: "(256 ÷ 16 + 84) × 5", a: 500 },
-        { q: "1320 ÷ 11 × 5 − 240", a: 360 },
-        { q: "(300 ÷ 15 + 95) × 3", a: 345 },
-        { q: "1680 ÷ 12 × 4 + 210", a: 770 },
-        { q: "(196 ÷ 14 + 88) × 2", a: 204 },
-        { q: "2100 − 540 ÷ 9 × 6 + 120", a: 1860 },
-        { q: "(400 ÷ 20 + 125) × 4", a: 580 }
-    ];
-
-    let current = 0, points = 0, uName = "", errors = [];
-    document.getElementById('live-date').innerText = "📅 " + new Date().toLocaleDateString('en-GB');
-
-    function initQuiz() {
-        uName = document.getElementById('userName').value;
-        if (!uName) return alert("Please select a name!");
-        document.getElementById('start-screen').classList.add('hidden');
-        document.getElementById('quiz-screen').classList.remove('hidden');
-        loadQ();
-    }
-
-    function loadQ() {
-        document.getElementById('q-counter').innerText = `STEP ${current + 1} / ${quizItems.length}`;
-        document.getElementById('q-text').innerText = quizItems[current].q;
-        document.getElementById('answer-field').value = "";
-        document.getElementById('answer-field').focus();
-    }
-
-    function handleNext() {
-        const val = document.getElementById('answer-field').value;
-        if (val === "") return;
-        if (parseInt(val) === quizItems[current].a) { points++; } 
-        else { errors.push({ q: quizItems[current].q, u: val, c: quizItems[current].a }); }
-        current++;
-        if (current < quizItems.length) loadQ();
-        else showFinal();
-    }
-
-    function showFinal() {
-        document.getElementById('quiz-screen').classList.add('hidden');
-        document.getElementById('result-screen').classList.remove('hidden');
-        const tag = document.getElementById('pass-fail-tag');
-        const score = document.getElementById('score-text');
+    <div class="container">
         
-        // Fail logic: 5 or more mistakes
-        if (errors.length >= 5) {
-            document.getElementById('student-title').innerText = uName + " - FAILED ❌";
-            tag.innerText = "Kafi galtiyan hain! Aur mehnat karo.";
-            tag.style.color = "var(--danger)";
-            score.style.color = "var(--danger)";
-        } else {
-            document.getElementById('student-title').innerText = uName + " - PASSED ✅";
-            tag.innerText = "Shabaash! Boht acha result hai.";
-            tag.style.color = "var(--success)";
-            score.style.color = "var(--success)";
-        }
-        score.innerText = points + "/" + quizItems.length;
-    }
+        <header>
+            <h1>پیارا سبق: محبت کیا ہے؟</h1>
+            <p>آئیں دلوں کو مسکراہٹ سے سجانا سیکھیں!</p>
+        </header>
 
-    function showCorrections() {
-        document.getElementById('result-screen').classList.add('hidden');
-        document.getElementById('review-screen').classList.remove('hidden');
-        const list = document.getElementById('review-list');
-        list.innerHTML = errors.length === 0 ? "<h3 style='text-align:center; color:green;'>Zero Mistakes! You are a genius.</h3>" : "";
-        errors.forEach(e => {
-            list.innerHTML += `<div class="review-card"><strong>${e.q}</strong><br>Aapka: ${e.u} | <span style="color:green; font-weight:bold;">Sahi: ${e.c}</span></div>`;
-        });
-    }
+        <div class="intro">
+            <p>پیارے بچو! آج ہم ایک ایسے لفظ کے بارے میں بات کریں گے جو دنیا کا سب سے خوبصورت اور جادوئی لفظ ہے۔ وہ لفظ ہے: <strong>"محبت"</strong>۔</p>
+            <p>کیا آپ جانتے ہیں کہ محبت کوئی ایسی چیز نہیں ہے جسے بازار سے خریدا جا سکے۔ یہ تو ایک احساس ہے، ایک خوشبو ہے جو ہمارے دلوں میں رہتی ہے۔ جب آپ کسی کا خیال رکھتے ہیں، کسی کو دیکھ کر مسکراتے ہیں، یا کسی کی مدد کرتے ہیں، تو اسی کو محبت کہتے ہیں۔</p>
+            <p>چلیے، ہم تین چھوٹی اور پیاری کہانیوں کے ذریعے سمجھتے ہیں کہ محبت اصل میں کیا ہوتی ہے!</p>
+        </div>
 
-    document.getElementById('answer-field').addEventListener('keypress', (e) => { if (e.key === 'Enter') handleNext(); });
-</script>
+        <div class="story-card">
+            <h2 class="story-title">کہانی نمبر 1: چڑیا اور اس کا گھونسلا (محبت یعنی خیال رکھنا)</h2>
+            <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80" alt="درخت پر چڑیا کا گھونسلا اور ننھے بچے" class="story-image">
+            <p>ایک گھنے درخت پر ایک چھوٹی سی چڑیا رہتی تھی۔ اس کا نام "چنچی" تھا۔ چنچی کے گھونسلے میں تین چھوٹے چھوٹے انڈے تھے۔</p>
+            <p>کچھ دنوں بعد ان انڈوں میں سے ننھے منھے بچے باہر نکل آئے۔ وہ اتنے چھوٹے تھے کہ نہ اڑ سکتے تھے اور نہ خود کھانا کھا سکتے تھے۔ چنچی روز صبح سویرے اٹھتی، دور دور تک اڑ کر جاتی اور اپنے بچوں کے لیے دانہ لے کر آتی۔ جب تیز بارش ہوتی یا طوفان آتا، تو چنچی اپنے پروں کو پھیلا کر اپنے بچوں کو چھپا لیتی تاکہ انہیں سردی نہ لگے۔ وہ خود گیلی ہو جاتی، لیکن اپنے بچوں کو آنچ نہ آنے دیتی۔</p>
+            <blockquote>
+                <strong>سبق:</strong> چنچی چڑیا جو اپنے بچوں کے لیے کرتی ہے، وہی <strong>محبت</strong> ہے۔ آپ کے امی اور ابو بھی آپ کے لیے یہی کرتے ہیں۔ وہ دن بھر محنت کرتے ہیں، آپ کے لیے اچھا کھانا بناتے ہیں، اور جب آپ بیمار ہوتے ہیں تو رات بھر جاگ کر آپ کا خیال رکھتے ہیں۔ والدین کی اس دیکھ بھال کا نام ہی محبت ہے۔
+            </blockquote>
+        </div>
+
+        <div class="story-card">
+            <h2 class="story-title">کہانی نمبر 2: زریاب اور اس کی بلی (محبت یعنی نرمی اور احساس)</h2>
+            <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=800&q=80" alt="ایک پیاری سی بلی" class="story-image">
+            <p>زریاب ایک سات سال کا بچہ تھا، بالکل آپ کی طرح۔ ایک دن اس نے گلی کے کونے میں ایک چھوٹی سی بلی دیکھی۔ وہ بیچاری بہت کمزور تھی اور سردی سے کانپ رہی تھی۔</p>
+            <p>زریاب کو اس پر بہت ترس آیا۔ وہ بھاگ کر گھر گیا، ایک کٹوری میں گرم دودھ لایا اور بلی کے سامنے رکھ دیا۔ بلی نے جلدی جلدی دودھ پیا اور آرام سے میاؤں کرنے لگی۔ زریاب نے اپنے پرانے گرم کپڑوں میں سے ایک چھوٹا سا بستر اس کے لیے بنایا۔ کچھ ہی دنوں میں وہ بلی زریاب کی سب سے اچھی دوست بن گئی۔ جب بھی زریاب اسکول سے آتا، وہ خوشی سے اپنی دم ہلاتی اور اس کے پیروں سے لپٹ جاتی۔</p>
+            <blockquote>
+                <strong>سبق:</strong> محبت صرف انسانوں سے نہیں ہوتی۔ جانوروں، پرندوں اور درختوں کو نقصان نہ پہنچانا، انہیں کھانا اور پانی دینا اور ان کے ساتھ نرمی سے پیش آنا بھی <strong>محبت</strong> ہے۔ جب ہم کسی جاندار پر رحم کرتے ہیں، تو ہمارا دل خوشی سے بھر جاتا ہے۔
+            </blockquote>
+        </div>
+
+        <div class="story-card">
+            <h2 class="story-title">کہانی نمبر 3: دو بھائیوں کا کھلونا (محبت یعنی بانٹنا اور قربانی)</h2>
+            <img src="https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?auto=format&fit=crop&w=800&q=80" alt="بچوں کے پیارے کھلونے" class="story-image">
+            <p>حماد اور سلیمان دو بھائی تھے۔ ایک بار ان کے ماموں نے انہیں ایک بہت ہی خوبصورت اور چابی سے چلنے والی کار تحفے میں دی۔ کار ایک ہی تھی، اور دونوں اس سے کھیلنا چاہتے تھے۔</p>
+            <p>شروع میں دونوں میں تھوڑی لڑائی ہونے لگی۔ لیکن حماد نے دیکھا کہ اس کا چھوٹا بھائی سلیمان رونے والا ہے۔ حماد نے مسکرا کر کار سلیمان کے ہاتھ میں دے دی اور کہا، "تم پہلے کھیل لو، میں بعد میں کھیل لوں گا۔" سلیمان کا چہرہ خوشی سے چمک اٹھا اور اس نے حماد کو گلے سے لگا لیا۔ سلیمان نے بھی تھوڑی دیر کھیل کر کار حماد کو دے دی کہ "بھائی! اب آپ کی باری ہے۔"</p>
+            <blockquote>
+                <strong>سبق:</strong> اپنی پسندیدہ چیزیں اپنے بہن بھائیوں اور دوستوں کے ساتھ بانٹنا (Share کرنا) <strong>محبت</strong> ہے۔ جب ہم اپنی کسی چیز کی قربانی دے کر دوسروں کے چہرے پر مسکراہٹ لاتے ہیں، تو وہ محبت کا سب سے اونچا مقام ہوتا ہے۔
+            </blockquote>
+        </div>
+
+        <div class="daily-tasks">
+            <h2>ہم محبت کیسے بانٹ سکتے ہیں؟ (ہمارا روزانہ کا کام)</h2>
+            <p style="text-align: center; font-weight: bold;">پیارے بچو! محبت بانٹنے کے لیے آپ کو کوئی بڑا کام کرنے کی ضرورت نہیں ہے۔ آپ روزانہ یہ چھوٹے چھوٹے کام کر کے اپنے آس پاس محبت پھیلا سکتے ہیں:</p>
+            <ul>
+                <li><strong>مسکرانا:</strong> جب بھی کسی سے ملیں، مسکرا کر ملیں۔ آپ کی مسکراہٹ دوسروں کا دن اچھا بنا سکتی ہے۔</li>
+                <li><strong>سلام کرنا:</strong> اپنے بڑوں اور دوستوں کو پیار سے "السلام علیکم" کہیں۔</li>
+                <li><strong>مدد کرنا:</strong> اگر کلاس میں کسی دوست کے پاس پنسل نہ ہو، تو اسے اپنی پنسل دے دیں۔ گھر میں اپنی امی کے چھوٹے موٹے کاموں میں مدد کریں۔</li>
+                <li><strong>اچھے الفاظ بولنا:</strong> ہمیشہ نرمی سے بات کریں اور "شکریہ" (Thank you) اور "براہِ مہربانی" (Please) جیسے الفاظ استعمال کریں۔</li>
+            </ul>
+        </div>
+
+        <div class="summary-box">
+            <h3>خلاصہ (دل کی بات)</h3>
+            <p>محبت ایک ایسا جادوئی پھول ہے جو جتنا بانٹا جائے، اتنا ہی بڑھتا ہے۔ جب آپ سب سے پیار کریں گے، تو سب آپ سے پیار کریں گے، اور یوں پوری دنیا بہت خوبصورت بن جائے گی!</p>
+            
+            <div class="question-box">
+                <p style="font-size: 1.2rem; font-weight: bold; margin: 0; color: #0284c7;">اب آپ بتائیے: آج آپ اپنے گھر میں یا اسکول میں کس کے ساتھ محبت کا اظہار کریں گے اور کیسے؟</p>
+            </div>
+        </div>
+
+    </div>
+
 </body>
 </html>
