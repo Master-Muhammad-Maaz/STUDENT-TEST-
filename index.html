@@ -1,266 +1,210 @@
 <!DOCTYPE html>
-<html lang="ur">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Urdu Story & Quiz Test</title>
+    <title>Daily Math Practice - Live Test</title>
     <style>
-        :root {
-            --primary: #2d3436;
-            --accent: #0984e3;
-            --success: #00b894;
-            --danger: #d63031;
-            --bg: #f5f6fa;
+        :root { 
+            --primary: #2d3436; 
+            --accent: #0984e3; 
+            --success: #00b894; 
+            --danger: #d63031; 
+            --bg: #f5f6fa; 
         }
-        body {
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            background-color: var(--bg);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 10px;
-            direction: rtl; /* Sets the layout from Right-to-Left for Urdu */
+        body { 
+            font-family: 'Segoe UI', Tahoma, sans-serif; 
+            background-color: var(--bg); 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            margin: 0; 
+            padding: 10px; 
         }
-        .main-container {
-            background: #ffffff;
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 550px;
-            text-align: right;
+        .main-container { 
+            background: #ffffff; 
+            padding: 2rem; 
+            border-radius: 20px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1); 
+            width: 100%; 
+            max-width: 450px; 
+            text-align: center; 
         }
-        .header-section {
-            border-bottom: 2px solid #eee;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            text-align: center;
+        .header-section { 
+            border-bottom: 2px solid #eee; 
+            margin-bottom: 20px; 
+            padding-bottom: 15px; 
         }
-        .date-badge {
-            background: var(--accent);
-            color: #ffffff;
-            padding: 5px 15px;
-            border-radius: 50px;
-            font-size: 13px;
-            display: inline-block;
-            margin-top: 10px;
-            font-weight: 700;
-            direction: ltr;
+        .date-badge { 
+            background: var(--accent); 
+            color: white; 
+            padding: 5px 15px; 
+            border-radius: 50px; 
+            font-size: 13px; 
+            display: inline-block; 
+            margin-top: 10px; 
+            font-weight: bold; 
         }
-        select, input {
-            width: 100%;
-            padding: 15px;
-            margin: 15px 0;
-            border: 2px solid #dfe6e9;
-            border-radius: 12px;
-            font-size: 16px;
-            box-sizing: border-box;
-            outline: none;
-            text-align: right;
+        select, input { 
+            width: 100%; 
+            padding: 15px; 
+            margin: 15px 0; 
+            border: 2px solid #dfe6e9; 
+            border-radius: 12px; 
+            font-size: 16px; 
+            box-sizing: border-box; 
+            outline: none; 
         }
-        .btn-action {
-            background: var(--accent);
-            color: #ffffff;
-            border: none;
-            padding: 15px;
-            width: 100%;
-            border-radius: 12px;
-            font-size: 18px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.3s;
-            text-align: center;
+        .btn-action { 
+            background: var(--accent); 
+            color: white; 
+            border: none; 
+            padding: 15px; 
+            width: 100%; 
+            border-radius: 12px; 
+            font-size: 18px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: 0.3s; 
         }
-        .btn-action:hover {
-            background: #0771c1;
+        .btn-action:hover { 
+            background: #0771c1; 
         }
-        .hidden {
-            display: none;
+        .hidden { 
+            display: none; 
         }
-        .story-box {
-            background: #fff8ed;
-            padding: 20px;
-            border-radius: 12px;
-            border-right: 5px solid #e67e22;
-            line-height: 1.8;
-            font-size: 18px;
-            margin-bottom: 20px;
-            text-align: justify;
+        .q-display { 
+            font-size: 24px; 
+            font-weight: 800; 
+            margin: 25px 0; 
+            color: #2d3436; 
+            line-height: 1.4; 
         }
-        .option-btn {
-            background: #ffffff;
-            border: 2px solid #dfe6e9;
-            padding: 12px;
-            width: 100%;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            text-align: right;
-            font-size: 16px;
-            cursor: pointer;
-            transition: 0.2s;
+        .result-score { 
+            font-size: 60px; 
+            font-weight: 900; 
+            margin: 10px 0; 
         }
-        .option-btn:hover {
-            background: #f1f2f6;
-            border-color: var(--accent);
+        .status-tag { 
+            font-size: 22px; 
+            font-weight: bold; 
+            margin-bottom: 10px; 
         }
-        .q-display {
-            font-size: 22px;
-            font-weight: 800;
-            margin: 25px 0;
-            color: #2d3436;
-            line-height: 1.5;
+        .review-box { 
+            text-align: left; 
+            max-height: 300px; 
+            overflow-y: auto; 
+            margin-top: 20px; 
         }
-        .result-score {
-            font-size: 60px;
-            font-weight: 900;
-            margin: 10px 0;
-            text-align: center;
-        }
-        .status-tag {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-        .review-box {
-            text-align: right;
-            max-height: 350px;
-            overflow-y: auto;
-            margin-top: 20px;
-        }
-        .review-card {
-            background: #fffafa;
-            padding: 12px;
-            margin-bottom: 10px;
-            border-right: 5px solid var(--danger);
-            border-radius: 8px;
-            font-size: 14px;
+        .review-card { 
+            background: #fffafa; 
+            padding: 12px; 
+            margin-bottom: 10px; 
+            border-left: 5px solid var(--danger); 
+            border-radius: 8px; 
+            font-size: 14px; 
         }
     </style>
 </head>
 <body>
 
 <div class="main-container">
-    <!-- WELCOME SCREEN -->
+    <!-- START / WELCOME SCREEN -->
     <div id="start-screen">
         <div class="header-section">
-            <h1 style="font-size: 24px; margin:0;">سچا دوست — کہانی اور کوئز</h1>
+            <h1 style="font-size: 22px; margin:0;">Daily Math Practice</h1>
             <div class="date-badge" id="live-date"></div>
         </div>
         <select id="userName">
-            <option value="">-- اپنا نام چنیں --</option>
+            <option value="">-- Apna Naam Chunain --</option>
             <option value="MOHAMMAD SAAD">MOHAMMAD SAAD</option>
             <option value="MOHAMMAD ZIYAN">MOHAMMAD ZIYAN</option>
             <option value="MOHAMMAD ZAMMAD">MOHAMMAD ZAMMAD</option>
         </select>
-        <button class="btn-action" onclick="showStory()">کہانی پڑھیں</button>
+        <button class="btn-action" onclick="initQuiz()">Start Round</button>
     </div>
 
-    <!-- STORY SCREEN -->
-    <div id="story-screen" class="hidden">
-        <div class="header-section">
-            <h2 style="margin:0; color:#e67e22;">سبق آموز کہانی: سچا دوست</h2>
-        </div>
-        <div class="story-box">
-            ایک خوبصورت گاؤں میں دو دوست رہتے تھے۔ ایک کا نام <strong>علی</strong> تھا اور دوسرے کا <strong>احمد</strong>۔ دونوں بچپن کے پکے ساتھی تھے۔ وہ ایک ساتھ اسکول جاتے، ہنستے کھیلتے اور ہر مشکل میں ایک دوسرے کا ہاتھ بٹاتے تھے۔<br><br>
-            ایک دن دونوں نے جرات کی اور گھنے جنگل کی طرف سیر کے لیے نکلے۔ وہ خوشی خوشی راستے کے حسین مناظر دیکھ رہے تھے اور باتیں کر رہے تھے۔ اچانک جھاڑیوں میں سے ایک بہت بڑا اور خوفناک ریچھ نکل آیا۔ دونوں خوف سے کانپنے لگے۔<br><br>
-            علی پھرتیلا تھا اور اسے درخت پر چڑھنا آتا تھا۔ وہ احمد کا سوچے بغیر فوراً پاس موجود ایک اونچے درخت پر چڑھ کر چھپ گیا۔ لیکن غریب احمد کو درخت پر چڑھنا نہیں آتا تھا۔ وہ بے بس ہو گیا، لیکن اس نے ہمت نہ ہاری۔ اسے اپنے بزرگوں کی ایک دانشمندانہ بات یاد آئی کہ "ریچھ مردہ انسان کو نقصان نہیں پہنچاتا"۔<br><br>
-            احمد نے فوراً عقل مندی دکھائی اور زمین پر سیدھا لیٹ گیا اور اپنی سانسیں روک لیں۔ ریچھ آہستہ آہستہ احمد کے قریب آیا، اس کے چہرے اور کان کو سونگھا۔ احمد کو بالکل ساکت دیکھ کر ریچھ نے اسے مرا ہوا سمجھا اور خاموشی سے جنگل میں واپس چلا گیا۔<br><br>
-            جب ریچھ نظروں سے اوجھل ہو گیا تو علی درخت سے نیچے اترا اور ہنستے ہوئے احمد سے بولا: "یار! ریچھ تمہارے کان میں اتنی دیر تک کیا خفیہ بات کہہ رہا تھا؟"<br><br>
-            احمد نے سنجیدگی سے مٹی جھاڑی اور جواب دیا: "ریچھ میرے کان میں کہہ رہا تھا کہ ایسے مطلبی دوست پر کبھی بھروسہ نہ کرنا جو مشکل وقت میں تمہیں اکیلا چھوڑ کر اپنی جان بچا لے۔"
-        </div>
-        <button class="btn-action" onclick="initQuiz()">کوئز شروع کریں (20 سوالات)</button>
-    </div>
-
-    <!-- QUIZ SCREEN -->
+    <!-- LIVE QUIZ SCREEN -->
     <div id="quiz-screen" class="hidden">
-        <div id="q-counter" style="color: #b2bec3; font-weight: bold; font-size: 13px; text-align: center;"></div>
+        <div id="q-counter" style="color: #b2bec3; font-weight: bold; font-size: 12px;"></div>
         <div class="q-display" id="q-text"></div>
-        <div id="options-container"></div>
+        <!-- step="any" allows users to input decimal values smoothly -->
+        <input type="number" id="answer-field" placeholder="Type Answer..." step="any" autocomplete="off" inputmode="decimal">
+        <button class="btn-action" onclick="handleNext()">Next</button>
     </div>
 
-    <!-- RESULT SCREEN -->
+    <!-- SCORE / FINAL RESULT SCREEN -->
     <div id="result-screen" class="hidden">
-        <h2 id="student-title" style="margin-bottom:5px; text-align: center;"></h2>
+        <h2 id="student-title" style="margin-bottom:5px;"></h2>
         <div id="pass-fail-tag" class="status-tag"></div>
         <div class="result-score" id="score-text"></div>
-        <button class="btn-action" onclick="showCorrections()">غلطیاں دیکھیں</button>
-        <button class="btn-action" style="background:#636e72; margin-top:10px;" onclick="location.reload()">دوبارہ شروع کریں</button>
+        <button class="btn-action" onclick="showCorrections()">Review Mistakes</button>
+        <button class="btn-action" style="background:#636e72; margin-top:10px;" onclick="location.reload()">Restart</button>
     </div>
 
-    <!-- REVIEW SCREEN -->
+    <!-- MISTAKES REVIEW SCREEN -->
     <div id="review-screen" class="hidden">
-        <h3>غلطیوں کا جائزہ</h3>
+        <h3>Mistakes Review</h3>
         <div id="review-list" class="review-box"></div>
-        <button class="btn-action" onclick="location.reload()">ہوم پیج پر جائیں</button>
+        <button class="btn-action" onclick="location.reload()">Back to Home</button>
     </div>
 </div>
 
 <script>
-    // 20 Structured Urdu MCQs based on the story
+    // Comprehensive Mixed Decimal & BODMAS Dataset (20 Questions)
     const quizItems = [
-        { q: "کہانی میں کتنے دوستوں کا ذکر ہے؟", o: ["ایک", "دو", "تین", "چار"], a: 1 },
-        { q: "دونوں دوستوں کے نام کیا تھے؟", o: ["علی اور عمر", "احمد اور عثمان", "علی اور احمد", "زید اور بکر"], a: 2 },
-        { q: "وہ دونوں بچپن سے کیسے تھے؟", o: ["دشمن", "پکے دوست", "انجان", "پڑوسی"], a: 1 },
-        { q: "ایک دن دونوں نے کہاں جانے کا فیصلہ کیا؟", o: ["شہر", "دریا", "جنگل", "پہاڑ"], a: 2 },
-        { q: "راستے میں اچانک سامنے کون سا جانور آ گیا؟", o: ["شیر", "چیتا", "ریچھ", "بھیڑیا"], a: 2 },
-        { q: "ریچھ کو دیکھ کر دونوں دوستوں پر کیا اثر ہوا؟", o: ["وہ خوش ہوئے", "وہ بہت ڈر گئے", "وہ ہنسنے لگے", "وہ بھاگ گئے"], a: 1 },
-        { q: "درخت پر چڑھنا کس کو آتا تھا؟", o: ["احمد کو", "علی کو", "دونوں کو", "کسی کو نہیں"], a: 1 },
-        { q: "علی نے ریچھ کو دیکھ کر کیا کیا؟", o: ["احمد کی مدد کی", "شور مچایا", "فوراً درخت پر چڑھ گیا", "ریچھ کو مارا"], a: 2 },
-        { q: "درخت پر چڑھنا کس کو نہیں آتا تھا؟", o: ["علی کو", "احمد کو", "ریچھ کو", "بزرگوں کو"], a: 1 },
-        { q: "احمد کو مشکل وقت میں کس کی بات یاد آئی؟", o: ["علی کی", "استاد کی", "اپنے بزرگوں کی", "اپنی امی کی"], a: 2 },
-        { q: "بزرگوں کے مطابق ریچھ کس قسم کے انسان کو نہیں چھیڑتا؟", o: ["بیمار انسان کو", "مردہ انسان کو", "سوتے ہوئے انسان کو", "بہادر انسان کو"], a: 1 },
-        { q: "احمد نے جان بچانے کے لیے زمین پر لیٹ کر کیا کیا؟", o: ["رونا شروع کیا", "آنکھیں بند کیں", "سانس روک لی", "گانا گایا"], a: 2 },
-        { q: "ریچھ نے احمد کے پاس آ کر کیا کیا؟", o: ["اسے کاٹا", "اسے سونگھا", "اسے مارا", "اس کے ساتھ کھیلا"], a: 1 },
-        { q: "ریچھ احمد کو کیا سمجھ کر چلا گیا防؟", o: ["زندہ", "خوفناک", "مردہ", "سویا ہوا"], a: 2 },
-        { q: "ریچھ کے جانے کے بعد علی نے درخت سے اتر کر کیا کیا؟", o: ["احمد کو گلے لگایا", "احمد سے معافی مانگی", "ہنستے ہوئے سوال کیا", "رونے لگا"], a: 2 },
-        { q: "علی نے ہنستے ہوئے احمد سے کیا پوچھا؟", o: ["ریچھ کہاں گیا؟", "تم کیسے بچ گئے؟", "ریچھ تمہارے کان میں کیا کہہ رہا تھا؟", "کیا تمہیں ڈر لگا؟"], a: 2 },
-        { q: "احمد نے علی کو کس قسم کا دوست کہا؟", o: ["سچا دوست", "مطلبی اور دھوکے باز", "بہادر دوست", "انجان"], a: 1 },
-        { q: "ریچھ نے کان میں کیا نصیحت کی تھی (احمد کے مطابق)؟", o: ["جنگل مت آؤ", "مشکل میں ساتھ چھوڑنے والے پر بھروسہ نہ کرو", "درخت پر چڑھنا سیکھو", "ریچھ سے دوستی کرو"], a: 1 },
-        { q: "اس کہانی سے ہمیں کیا سبق ملتا ہے؟", o: ["درخت پر چڑھنا ضروری ہے", "سچا دوست وہی ہے جو مشکل میں کام آئے", "جنگل نہیں جانا چاہیے", "ریچھ سے دور رہو"], a: 1 },
-        { q: "اس کہانی کا سب سے عقل مند کردار کون ثابت ہوا؟", o: ["علی", "ریچھ", "احمد", "کوئی نہیں"], a: 2 }
+        { q: "50.9 + 23.7 × 2 − 15.5", a: 82.8 },
+        { q: "(84 ÷ 7 + 22.5) × 3", a: 103.5 },
+        { q: "120.6 − 45.2 ÷ 2 + 18.4", a: 116.4 },
+        { q: "(96 ÷ 12 + 18.8) × 4", a: 107.2 },
+        { q: "250.5 ÷ 5 × 3 − 40.7", a: 109.6 },
+        { q: "920 − 280 ÷ 7 × 6 + 80", a: 760 },
+        { q: "(126 ÷ 14 + 55) × 2", a: 128 },
+        { q: "1080 ÷ 9 × 2 − 160", a: 80 },
+        { q: "(160 ÷ 8 + 60) × 3", a: 240 },
+        { q: "840 ÷ 12 × 6 + 120", a: 540 },
+        { q: "75.5 × 2 + 48.3 − 60.8", a: 138.5 },
+        { q: "(45.6 + 24.4) ÷ 7 × 5", a: 50 },
+        { q: "300.8 − 120.4 ÷ 4 × 3", a: 210.5 },
+        { q: "(72.5 ÷ 5 + 16.5) × 6", a: 186 },
+        { q: "480.9 ÷ 9 × 4 − 55.2", a: 158.4 },
+        { q: "1500 − 360 ÷ 9 × 5 + 70", a: 1370 },
+        { q: "(144 ÷ 12 + 48) × 3", a: 180 },
+        { q: "1320 ÷ 11 × 5 − 240", a: 360 },
+        { q: "(300 ÷ 15 + 95) × 3", a: 345 },
+        { q: "2100 − 540 ÷ 9 × 6 + 120", a: 1860 }
     ];
 
     let current = 0, points = 0, uName = "", errors = [];
     
+    // Set current formatted live date on launch
     document.getElementById('live-date').innerText = "📅 " + new Date().toLocaleDateString('en-GB');
 
-    function showStory() {
-        uName = document.getElementById('userName').value;
-        if (!uName) return alert("براہ کرم پہلے اپنا نام منتخب کریں!");
-        document.getElementById('start-screen').classList.add('hidden');
-        document.getElementById('story-screen').classList.remove('hidden');
-    }
-
     function initQuiz() {
-        document.getElementById('story-screen').classList.add('hidden');
+        uName = document.getElementById('userName').value;
+        if (!uName) return alert("Please select a name!");
+        document.getElementById('start-screen').classList.add('hidden');
         document.getElementById('quiz-screen').classList.remove('hidden');
         loadQ();
     }
 
     function loadQ() {
-        document.getElementById('q-counter').innerText = `سوال ${current + 1} / ${quizItems.length}`;
+        document.getElementById('q-counter').innerText = `STEP ${current + 1} / ${quizItems.length}`;
         document.getElementById('q-text').innerText = quizItems[current].q;
-        
-        const optionsContainer = document.getElementById('options-container');
-        optionsContainer.innerHTML = "";
-        
-        quizItems[current].o.forEach((option, index) => {
-            optionsContainer.innerHTML += `<button class="option-btn" onclick="handleAnswer(${index})">${option}</button>`;
-        });
+        document.getElementById('answer-field').value = "";
+        document.getElementById('answer-field').focus();
     }
 
-    function handleAnswer(selectedIndex) {
-        if (selectedIndex === quizItems[current].a) {
-            points++;
-        } else {
-            errors.push({
-                q: quizItems[current].q,
-                u: quizItems[current].o[selectedIndex],
-                c: quizItems[current].o[quizItems[current].a]
-            });
+    function handleNext() {
+        const val = document.getElementById('answer-field').value;
+        if (val === "") return;
+        
+        // parseFloat treats floating points carefully avoiding rounding mismatches
+        if (parseFloat(val) === quizItems[current].a) { 
+            points++; 
+        } else { 
+            errors.push({ q: quizItems[current].q, u: val, c: quizItems[current].a }); 
         }
         
         current++;
@@ -274,15 +218,15 @@
         const tag = document.getElementById('pass-fail-tag');
         const score = document.getElementById('score-text');
         
-        // Strict Fail Condition: If mistakes are 5 or more
+        // Strict Fail Logic: Flagged if total wrong answers match or exceed 5
         if (errors.length >= 5) {
             document.getElementById('student-title').innerText = uName + " - FAILED ❌";
-            tag.innerText = "افسوس! کافی غلطیاں ہیں۔ مزید محنت کریں۔";
+            tag.innerText = "Kafi galtiyan hain! Aur mehnat karo.";
             tag.style.color = "var(--danger)";
             score.style.color = "var(--danger)";
         } else {
             document.getElementById('student-title').innerText = uName + " - PASSED ✅";
-            tag.innerText = "شاباش! آپ نے بہت اچھا پرفارم کیا۔";
+            tag.innerText = "Shabaash! Boht acha result hai.";
             tag.style.color = "var(--success)";
             score.style.color = "var(--success)";
         }
@@ -293,12 +237,17 @@
         document.getElementById('result-screen').classList.add('hidden');
         document.getElementById('review-screen').classList.remove('hidden');
         const list = document.getElementById('review-list');
-        list.innerHTML = errors.length === 0 ? "<h3 style='text-align:center; color:green;'>کوئی غلطی نہیں! آپ جینیئس ہیں۔</h3>" : "";
+        list.innerHTML = errors.length === 0 ? "<h3 style='text-align:center; color:green;'>Zero Mistakes! You are a genius.</h3>" : "";
         
-        errors.forEach(item => {
-            list.innerHTML += `<div class="review-card"><strong>${item.q}</strong><br>آپ کا جواب: ${item.u} | <span style="color:green; font-weight:bold;">صحیح جواب: ${item.c}</span></div>`;
+        errors.forEach(e => {
+            list.innerHTML += `<div class="review-card"><strong>${e.q}</strong><br>Aapka: ${e.u} | <span style="color:green; font-weight:bold;">Sahi: ${e.c}</span></div>`;
         });
     }
+
+    // Dynamic submission listening to Enter Keypress
+    document.getElementById('answer-field').addEventListener('keypress', (e) => { 
+        if (e.key === 'Enter') handleNext(); 
+    });
 </script>
 </body>
 </html>
