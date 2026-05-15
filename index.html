@@ -1,258 +1,304 @@
 <!DOCTYPE html>
-<html lang="ur" dir="rtl">
+<html lang="ur">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>محبت کیا ہے؟ - بچوں کے لیے ایک پیارا سبق</title>
+    <title>Urdu Story & Quiz Test</title>
     <style>
-        /* جادوئی اور دوستانہ فونٹس اور رنگ */
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400..700&family=Baloo+2:wght@500;700&display=swap');
-
+        :root {
+            --primary: #2d3436;
+            --accent: #0984e3;
+            --success: #00b894;
+            --danger: #d63031;
+            --bg: #f5f6fa;
+        }
         body {
-            font-family: 'Noto Nastaliq Urdu', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f9ff;
-            color: #333;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background-color: var(--bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
             margin: 0;
-            padding: 0;
-            line-height: 2;
+            padding: 10px;
+            direction: rtl; /* Sets the layout from Right-to-Left for Urdu */
         }
-
-        /* مین کنٹینر */
-        .container {
-            max-width: 800px;
-            margin: 30px auto;
+        .main-container {
             background: #ffffff;
-            padding: 30px;
-            border-radius: 25px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            border: 5px solid #ffccd5;
-        }
-
-        /* ہیڈر اسٹائل */
-        header {
-            text-align: center;
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
-            padding: 30px;
+            padding: 2rem;
             border-radius: 20px;
-            color: #fff;
-            margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(255, 154, 158, 0.4);
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            margin: 0 0 10px 0;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-
-        header p {
-            font-size: 1.2rem;
-            margin: 0;
-            font-weight: bold;
-        }
-
-        /* تعارف */
-        .intro {
-            font-size: 1.2rem;
-            text-align: center;
-            background-color: #fff0f3;
-            padding: 20px;
-            border-radius: 15px;
-            border-right: 5px solid #ff4d6d;
-            margin-bottom: 40px;
-        }
-
-        /* کہانیوں کے سیکشنز */
-        .story-card {
-            background: #fff;
-            border: 2px solid #e2e8f0;
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 40px;
-            transition: transform 0.3s ease;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.02);
-            overflow: hidden;
-        }
-
-        .story-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.05);
-        }
-
-        .story-title {
-            color: #ff4d6d;
-            border-bottom: 2px dashed #ffccd5;
-            padding-bottom: 10px;
-            margin-top: 0;
-            font-size: 1.6rem;
-        }
-
-        /* تصاویر کے لیے اسٹائل */
-        .story-image {
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
             width: 100%;
-            height: auto;
-            max-height: 350px;
-            object-fit: cover;
-            border-radius: 15px;
-            margin: 15px 0;
-            border: 3px solid #ffccd5;
+            max-width: 550px;
+            text-align: right;
         }
-
-        /* سبق کا بلاک (Blockquote) */
-        blockquote {
-            background-color: #f0fdf4;
-            border-right: 5px solid #22c55e;
-            margin: 20px 0 0 0;
-            padding: 15px 20px;
-            border-radius: 10px;
-            color: #15803d;
-            font-size: 1.1rem;
-        }
-
-        blockquote strong {
-            color: #166534;
-        }
-
-        /* روزانہ کا کام (عملی نکات) */
-        .daily-tasks {
-            background-color: #fef9c3;
-            border: 3px dashed #eab308;
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 40px;
-        }
-
-        .daily-tasks h2 {
-            color: #ca8a04;
-            margin-top: 0;
+        .header-section {
+            border-bottom: 2px solid #eee;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
             text-align: center;
         }
-
-        .daily-tasks ul {
-            list-style-type: none;
-            padding: 0;
+        .date-badge {
+            background: var(--accent);
+            color: #ffffff;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 13px;
+            display: inline-block;
+            margin-top: 10px;
+            font-weight: 700;
+            direction: ltr;
         }
-
-        .daily-tasks li {
-            position: relative;
-            padding-right: 30px;
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-        }
-
-        .daily-tasks li::before {
-            content: "⭐";
-            position: absolute;
-            right: 0;
-            top: 2px;
-        }
-
-        /* خلاصہ اور سوال کا خانہ */
-        .summary-box {
-            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
-            border-radius: 20px;
-            padding: 25px;
-            text-align: center;
-            border: 2px solid #7dd3fc;
-        }
-
-        .summary-box h3 {
-            color: #0369a1;
-            margin-top: 0;
-            font-size: 1.5rem;
-        }
-
-        .question-box {
-            background-color: #fff;
-            border-radius: 15px;
+        select, input {
+            width: 100%;
             padding: 15px;
-            margin-top: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            border-top: 4px solid #0284c7;
+            margin: 15px 0;
+            border: 2px solid #dfe6e9;
+            border-radius: 12px;
+            font-size: 16px;
+            box-sizing: border-box;
+            outline: none;
+            text-align: right;
         }
-
-        /* موبائل کے لیے ریسپونسیو ڈیزائن */
-        @media (max-width: 600px) {
-            .container {
-                margin: 10px;
-                padding: 15px;
-                border-radius: 15px;
-            }
-            header h1 {
-                font-size: 1.8rem;
-            }
-            .story-title {
-                font-size: 1.3rem;
-            }
+        .btn-action {
+            background: var(--accent);
+            color: #ffffff;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            text-align: center;
+        }
+        .btn-action:hover {
+            background: #0771c1;
+        }
+        .hidden {
+            display: none;
+        }
+        .story-box {
+            background: #fff8ed;
+            padding: 20px;
+            border-radius: 12px;
+            border-right: 5px solid #e67e22;
+            line-height: 1.8;
+            font-size: 18px;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+        .option-btn {
+            background: #ffffff;
+            border: 2px solid #dfe6e9;
+            padding: 12px;
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            text-align: right;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .option-btn:hover {
+            background: #f1f2f6;
+            border-color: var(--accent);
+        }
+        .q-display {
+            font-size: 22px;
+            font-weight: 800;
+            margin: 25px 0;
+            color: #2d3436;
+            line-height: 1.5;
+        }
+        .result-score {
+            font-size: 60px;
+            font-weight: 900;
+            margin: 10px 0;
+            text-align: center;
+        }
+        .status-tag {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .review-box {
+            text-align: right;
+            max-height: 350px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+        .review-card {
+            background: #fffafa;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-right: 5px solid var(--danger);
+            border-radius: 8px;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        
-        <header>
-            <h1>پیارا سبق: محبت کیا ہے؟</h1>
-            <p>آئیں دلوں کو مسکراہٹ سے سجانا سیکھیں!</p>
-        </header>
-
-        <div class="intro">
-            <p>پیارے بچو! آج ہم ایک ایسے لفظ کے بارے میں بات کریں گے جو دنیا کا سب سے خوبصورت اور جادوئی لفظ ہے۔ وہ لفظ ہے: <strong>"محبت"</strong>۔</p>
-            <p>کیا آپ جانتے ہیں کہ محبت کوئی ایسی چیز نہیں ہے جسے بازار سے خریدا جا سکے۔ یہ تو ایک احساس ہے، ایک خوشبو ہے جو ہمارے دلوں میں رہتی ہے۔ جب آپ کسی کا خیال رکھتے ہیں، کسی کو دیکھ کر مسکراتے ہیں، یا کسی کی مدد کرتے ہیں، تو اسی کو محبت کہتے ہیں۔</p>
-            <p>چلیے، ہم تین چھوٹی اور پیاری کہانیوں کے ذریعے سمجھتے ہیں کہ محبت اصل میں کیا ہوتی ہے!</p>
+<div class="main-container">
+    <!-- WELCOME SCREEN -->
+    <div id="start-screen">
+        <div class="header-section">
+            <h1 style="font-size: 24px; margin:0;">سچا دوست — کہانی اور کوئز</h1>
+            <div class="date-badge" id="live-date"></div>
         </div>
-
-        <div class="story-card">
-            <h2 class="story-title">کہانی نمبر 1: چڑیا اور اس کا گھونسلا (محبت یعنی خیال رکھنا)</h2>
-            <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80" alt="درخت پر چڑیا کا گھونسلا اور ننھے بچے" class="story-image">
-            <p>ایک گھنے درخت پر ایک چھوٹی سی چڑیا رہتی تھی۔ اس کا نام "چنچی" تھا۔ چنچی کے گھونسلے میں تین چھوٹے چھوٹے انڈے تھے۔</p>
-            <p>کچھ دنوں بعد ان انڈوں میں سے ننھے منھے بچے باہر نکل آئے۔ وہ اتنے چھوٹے تھے کہ نہ اڑ سکتے تھے اور نہ خود کھانا کھا سکتے تھے۔ چنچی روز صبح سویرے اٹھتی، دور دور تک اڑ کر جاتی اور اپنے بچوں کے لیے دانہ لے کر آتی۔ جب تیز بارش ہوتی یا طوفان آتا، تو چنچی اپنے پروں کو پھیلا کر اپنے بچوں کو چھپا لیتی تاکہ انہیں سردی نہ لگے۔ وہ خود گیلی ہو جاتی، لیکن اپنے بچوں کو آنچ نہ آنے دیتی۔</p>
-            <blockquote>
-                <strong>سبق:</strong> چنچی چڑیا جو اپنے بچوں کے لیے کرتی ہے، وہی <strong>محبت</strong> ہے۔ آپ کے امی اور ابو بھی آپ کے لیے یہی کرتے ہیں۔ وہ دن بھر محنت کرتے ہیں، آپ کے لیے اچھا کھانا بناتے ہیں، اور جب آپ بیمار ہوتے ہیں تو رات بھر جاگ کر آپ کا خیال رکھتے ہیں۔ والدین کی اس دیکھ بھال کا نام ہی محبت ہے۔
-            </blockquote>
-        </div>
-
-        <div class="story-card">
-            <h2 class="story-title">کہانی نمبر 2: زریاب اور اس کی بلی (محبت یعنی نرمی اور احساس)</h2>
-            <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=800&q=80" alt="ایک پیاری سی بلی" class="story-image">
-            <p>زریاب ایک سات سال کا بچہ تھا، بالکل آپ کی طرح۔ ایک دن اس نے گلی کے کونے میں ایک چھوٹی سی بلی دیکھی۔ وہ بیچاری بہت کمزور تھی اور سردی سے کانپ رہی تھی۔</p>
-            <p>زریاب کو اس پر بہت ترس آیا۔ وہ بھاگ کر گھر گیا، ایک کٹوری میں گرم دودھ لایا اور بلی کے سامنے رکھ دیا۔ بلی نے جلدی جلدی دودھ پیا اور آرام سے میاؤں کرنے لگی۔ زریاب نے اپنے پرانے گرم کپڑوں میں سے ایک چھوٹا سا بستر اس کے لیے بنایا۔ کچھ ہی دنوں میں وہ بلی زریاب کی سب سے اچھی دوست بن گئی۔ جب بھی زریاب اسکول سے آتا، وہ خوشی سے اپنی دم ہلاتی اور اس کے پیروں سے لپٹ جاتی۔</p>
-            <blockquote>
-                <strong>سبق:</strong> محبت صرف انسانوں سے نہیں ہوتی۔ جانوروں، پرندوں اور درختوں کو نقصان نہ پہنچانا، انہیں کھانا اور پانی دینا اور ان کے ساتھ نرمی سے پیش آنا بھی <strong>محبت</strong> ہے۔ جب ہم کسی جاندار پر رحم کرتے ہیں، تو ہمارا دل خوشی سے بھر جاتا ہے۔
-            </blockquote>
-        </div>
-
-        <div class="story-card">
-            <h2 class="story-title">کہانی نمبر 3: دو بھائیوں کا کھلونا (محبت یعنی بانٹنا اور قربانی)</h2>
-            <img src="https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?auto=format&fit=crop&w=800&q=80" alt="بچوں کے پیارے کھلونے" class="story-image">
-            <p>حماد اور سلیمان دو بھائی تھے۔ ایک بار ان کے ماموں نے انہیں ایک بہت ہی خوبصورت اور چابی سے چلنے والی کار تحفے میں دی۔ کار ایک ہی تھی، اور دونوں اس سے کھیلنا چاہتے تھے۔</p>
-            <p>شروع میں دونوں میں تھوڑی لڑائی ہونے لگی۔ لیکن حماد نے دیکھا کہ اس کا چھوٹا بھائی سلیمان رونے والا ہے۔ حماد نے مسکرا کر کار سلیمان کے ہاتھ میں دے دی اور کہا، "تم پہلے کھیل لو، میں بعد میں کھیل لوں گا۔" سلیمان کا چہرہ خوشی سے چمک اٹھا اور اس نے حماد کو گلے سے لگا لیا۔ سلیمان نے بھی تھوڑی دیر کھیل کر کار حماد کو دے دی کہ "بھائی! اب آپ کی باری ہے۔"</p>
-            <blockquote>
-                <strong>سبق:</strong> اپنی پسندیدہ چیزیں اپنے بہن بھائیوں اور دوستوں کے ساتھ بانٹنا (Share کرنا) <strong>محبت</strong> ہے۔ جب ہم اپنی کسی چیز کی قربانی دے کر دوسروں کے چہرے پر مسکراہٹ لاتے ہیں، تو وہ محبت کا سب سے اونچا مقام ہوتا ہے۔
-            </blockquote>
-        </div>
-
-        <div class="daily-tasks">
-            <h2>ہم محبت کیسے بانٹ سکتے ہیں؟ (ہمارا روزانہ کا کام)</h2>
-            <p style="text-align: center; font-weight: bold;">پیارے بچو! محبت بانٹنے کے لیے آپ کو کوئی بڑا کام کرنے کی ضرورت نہیں ہے۔ آپ روزانہ یہ چھوٹے چھوٹے کام کر کے اپنے آس پاس محبت پھیلا سکتے ہیں:</p>
-            <ul>
-                <li><strong>مسکرانا:</strong> جب بھی کسی سے ملیں، مسکرا کر ملیں۔ آپ کی مسکراہٹ دوسروں کا دن اچھا بنا سکتی ہے۔</li>
-                <li><strong>سلام کرنا:</strong> اپنے بڑوں اور دوستوں کو پیار سے "السلام علیکم" کہیں۔</li>
-                <li><strong>مدد کرنا:</strong> اگر کلاس میں کسی دوست کے پاس پنسل نہ ہو، تو اسے اپنی پنسل دے دیں۔ گھر میں اپنی امی کے چھوٹے موٹے کاموں میں مدد کریں۔</li>
-                <li><strong>اچھے الفاظ بولنا:</strong> ہمیشہ نرمی سے بات کریں اور "شکریہ" (Thank you) اور "براہِ مہربانی" (Please) جیسے الفاظ استعمال کریں۔</li>
-            </ul>
-        </div>
-
-        <div class="summary-box">
-            <h3>خلاصہ (دل کی بات)</h3>
-            <p>محبت ایک ایسا جادوئی پھول ہے جو جتنا بانٹا جائے، اتنا ہی بڑھتا ہے۔ جب آپ سب سے پیار کریں گے، تو سب آپ سے پیار کریں گے، اور یوں پوری دنیا بہت خوبصورت بن جائے گی!</p>
-            
-            <div class="question-box">
-                <p style="font-size: 1.2rem; font-weight: bold; margin: 0; color: #0284c7;">اب آپ بتائیے: آج آپ اپنے گھر میں یا اسکول میں کس کے ساتھ محبت کا اظہار کریں گے اور کیسے؟</p>
-            </div>
-        </div>
-
+        <select id="userName">
+            <option value="">-- اپنا نام چنیں --</option>
+            <option value="MOHAMMAD SAAD">MOHAMMAD SAAD</option>
+            <option value="MOHAMMAD ZIYAN">MOHAMMAD ZIYAN</option>
+            <option value="MOHAMMAD ZAMMAD">MOHAMMAD ZAMMAD</option>
+        </select>
+        <button class="btn-action" onclick="showStory()">کہانی پڑھیں</button>
     </div>
 
+    <!-- STORY SCREEN -->
+    <div id="story-screen" class="hidden">
+        <div class="header-section">
+            <h2 style="margin:0; color:#e67e22;">سبق آموز کہانی: سچا دوست</h2>
+        </div>
+        <div class="story-box">
+            ایک خوبصورت گاؤں میں دو دوست رہتے تھے۔ ایک کا نام <strong>علی</strong> تھا اور دوسرے کا <strong>احمد</strong>۔ دونوں بچپن کے پکے ساتھی تھے۔ وہ ایک ساتھ اسکول جاتے، ہنستے کھیلتے اور ہر مشکل میں ایک دوسرے کا ہاتھ بٹاتے تھے۔<br><br>
+            ایک دن دونوں نے جرات کی اور گھنے جنگل کی طرف سیر کے لیے نکلے۔ وہ خوشی خوشی راستے کے حسین مناظر دیکھ رہے تھے اور باتیں کر رہے تھے۔ اچانک جھاڑیوں میں سے ایک بہت بڑا اور خوفناک ریچھ نکل آیا۔ دونوں خوف سے کانپنے لگے۔<br><br>
+            علی پھرتیلا تھا اور اسے درخت پر چڑھنا آتا تھا۔ وہ احمد کا سوچے بغیر فوراً پاس موجود ایک اونچے درخت پر چڑھ کر چھپ گیا۔ لیکن غریب احمد کو درخت پر چڑھنا نہیں آتا تھا۔ وہ بے بس ہو گیا، لیکن اس نے ہمت نہ ہاری۔ اسے اپنے بزرگوں کی ایک دانشمندانہ بات یاد آئی کہ "ریچھ مردہ انسان کو نقصان نہیں پہنچاتا"۔<br><br>
+            احمد نے فوراً عقل مندی دکھائی اور زمین پر سیدھا لیٹ گیا اور اپنی سانسیں روک لیں۔ ریچھ آہستہ آہستہ احمد کے قریب آیا، اس کے چہرے اور کان کو سونگھا۔ احمد کو بالکل ساکت دیکھ کر ریچھ نے اسے مرا ہوا سمجھا اور خاموشی سے جنگل میں واپس چلا گیا۔<br><br>
+            جب ریچھ نظروں سے اوجھل ہو گیا تو علی درخت سے نیچے اترا اور ہنستے ہوئے احمد سے بولا: "یار! ریچھ تمہارے کان میں اتنی دیر تک کیا خفیہ بات کہہ رہا تھا؟"<br><br>
+            احمد نے سنجیدگی سے مٹی جھاڑی اور جواب دیا: "ریچھ میرے کان میں کہہ رہا تھا کہ ایسے مطلبی دوست پر کبھی بھروسہ نہ کرنا جو مشکل وقت میں تمہیں اکیلا چھوڑ کر اپنی جان بچا لے۔"
+        </div>
+        <button class="btn-action" onclick="initQuiz()">کوئز شروع کریں (20 سوالات)</button>
+    </div>
+
+    <!-- QUIZ SCREEN -->
+    <div id="quiz-screen" class="hidden">
+        <div id="q-counter" style="color: #b2bec3; font-weight: bold; font-size: 13px; text-align: center;"></div>
+        <div class="q-display" id="q-text"></div>
+        <div id="options-container"></div>
+    </div>
+
+    <!-- RESULT SCREEN -->
+    <div id="result-screen" class="hidden">
+        <h2 id="student-title" style="margin-bottom:5px; text-align: center;"></h2>
+        <div id="pass-fail-tag" class="status-tag"></div>
+        <div class="result-score" id="score-text"></div>
+        <button class="btn-action" onclick="showCorrections()">غلطیاں دیکھیں</button>
+        <button class="btn-action" style="background:#636e72; margin-top:10px;" onclick="location.reload()">دوبارہ شروع کریں</button>
+    </div>
+
+    <!-- REVIEW SCREEN -->
+    <div id="review-screen" class="hidden">
+        <h3>غلطیوں کا جائزہ</h3>
+        <div id="review-list" class="review-box"></div>
+        <button class="btn-action" onclick="location.reload()">ہوم پیج پر جائیں</button>
+    </div>
+</div>
+
+<script>
+    // 20 Structured Urdu MCQs based on the story
+    const quizItems = [
+        { q: "کہانی میں کتنے دوستوں کا ذکر ہے؟", o: ["ایک", "دو", "تین", "چار"], a: 1 },
+        { q: "دونوں دوستوں کے نام کیا تھے؟", o: ["علی اور عمر", "احمد اور عثمان", "علی اور احمد", "زید اور بکر"], a: 2 },
+        { q: "وہ دونوں بچپن سے کیسے تھے؟", o: ["دشمن", "پکے دوست", "انجان", "پڑوسی"], a: 1 },
+        { q: "ایک دن دونوں نے کہاں جانے کا فیصلہ کیا؟", o: ["شہر", "دریا", "جنگل", "پہاڑ"], a: 2 },
+        { q: "راستے میں اچانک سامنے کون سا جانور آ گیا؟", o: ["شیر", "چیتا", "ریچھ", "بھیڑیا"], a: 2 },
+        { q: "ریچھ کو دیکھ کر دونوں دوستوں پر کیا اثر ہوا؟", o: ["وہ خوش ہوئے", "وہ بہت ڈر گئے", "وہ ہنسنے لگے", "وہ بھاگ گئے"], a: 1 },
+        { q: "درخت پر چڑھنا کس کو آتا تھا؟", o: ["احمد کو", "علی کو", "دونوں کو", "کسی کو نہیں"], a: 1 },
+        { q: "علی نے ریچھ کو دیکھ کر کیا کیا؟", o: ["احمد کی مدد کی", "شور مچایا", "فوراً درخت پر چڑھ گیا", "ریچھ کو مارا"], a: 2 },
+        { q: "درخت پر چڑھنا کس کو نہیں آتا تھا؟", o: ["علی کو", "احمد کو", "ریچھ کو", "بزرگوں کو"], a: 1 },
+        { q: "احمد کو مشکل وقت میں کس کی بات یاد آئی؟", o: ["علی کی", "استاد کی", "اپنے بزرگوں کی", "اپنی امی کی"], a: 2 },
+        { q: "بزرگوں کے مطابق ریچھ کس قسم کے انسان کو نہیں چھیڑتا؟", o: ["بیمار انسان کو", "مردہ انسان کو", "سوتے ہوئے انسان کو", "بہادر انسان کو"], a: 1 },
+        { q: "احمد نے جان بچانے کے لیے زمین پر لیٹ کر کیا کیا؟", o: ["رونا شروع کیا", "آنکھیں بند کیں", "سانس روک لی", "گانا گایا"], a: 2 },
+        { q: "ریچھ نے احمد کے پاس آ کر کیا کیا؟", o: ["اسے کاٹا", "اسے سونگھا", "اسے مارا", "اس کے ساتھ کھیلا"], a: 1 },
+        { q: "ریچھ احمد کو کیا سمجھ کر چلا گیا防؟", o: ["زندہ", "خوفناک", "مردہ", "سویا ہوا"], a: 2 },
+        { q: "ریچھ کے جانے کے بعد علی نے درخت سے اتر کر کیا کیا؟", o: ["احمد کو گلے لگایا", "احمد سے معافی مانگی", "ہنستے ہوئے سوال کیا", "رونے لگا"], a: 2 },
+        { q: "علی نے ہنستے ہوئے احمد سے کیا پوچھا؟", o: ["ریچھ کہاں گیا؟", "تم کیسے بچ گئے؟", "ریچھ تمہارے کان میں کیا کہہ رہا تھا؟", "کیا تمہیں ڈر لگا؟"], a: 2 },
+        { q: "احمد نے علی کو کس قسم کا دوست کہا؟", o: ["سچا دوست", "مطلبی اور دھوکے باز", "بہادر دوست", "انجان"], a: 1 },
+        { q: "ریچھ نے کان میں کیا نصیحت کی تھی (احمد کے مطابق)؟", o: ["جنگل مت آؤ", "مشکل میں ساتھ چھوڑنے والے پر بھروسہ نہ کرو", "درخت پر چڑھنا سیکھو", "ریچھ سے دوستی کرو"], a: 1 },
+        { q: "اس کہانی سے ہمیں کیا سبق ملتا ہے؟", o: ["درخت پر چڑھنا ضروری ہے", "سچا دوست وہی ہے جو مشکل میں کام آئے", "جنگل نہیں جانا چاہیے", "ریچھ سے دور رہو"], a: 1 },
+        { q: "اس کہانی کا سب سے عقل مند کردار کون ثابت ہوا؟", o: ["علی", "ریچھ", "احمد", "کوئی نہیں"], a: 2 }
+    ];
+
+    let current = 0, points = 0, uName = "", errors = [];
+    
+    document.getElementById('live-date').innerText = "📅 " + new Date().toLocaleDateString('en-GB');
+
+    function showStory() {
+        uName = document.getElementById('userName').value;
+        if (!uName) return alert("براہ کرم پہلے اپنا نام منتخب کریں!");
+        document.getElementById('start-screen').classList.add('hidden');
+        document.getElementById('story-screen').classList.remove('hidden');
+    }
+
+    function initQuiz() {
+        document.getElementById('story-screen').classList.add('hidden');
+        document.getElementById('quiz-screen').classList.remove('hidden');
+        loadQ();
+    }
+
+    function loadQ() {
+        document.getElementById('q-counter').innerText = `سوال ${current + 1} / ${quizItems.length}`;
+        document.getElementById('q-text').innerText = quizItems[current].q;
+        
+        const optionsContainer = document.getElementById('options-container');
+        optionsContainer.innerHTML = "";
+        
+        quizItems[current].o.forEach((option, index) => {
+            optionsContainer.innerHTML += `<button class="option-btn" onclick="handleAnswer(${index})">${option}</button>`;
+        });
+    }
+
+    function handleAnswer(selectedIndex) {
+        if (selectedIndex === quizItems[current].a) {
+            points++;
+        } else {
+            errors.push({
+                q: quizItems[current].q,
+                u: quizItems[current].o[selectedIndex],
+                c: quizItems[current].o[quizItems[current].a]
+            });
+        }
+        
+        current++;
+        if (current < quizItems.length) loadQ();
+        else showFinal();
+    }
+
+    function showFinal() {
+        document.getElementById('quiz-screen').classList.add('hidden');
+        document.getElementById('result-screen').classList.remove('hidden');
+        const tag = document.getElementById('pass-fail-tag');
+        const score = document.getElementById('score-text');
+        
+        // Strict Fail Condition: If mistakes are 5 or more
+        if (errors.length >= 5) {
+            document.getElementById('student-title').innerText = uName + " - FAILED ❌";
+            tag.innerText = "افسوس! کافی غلطیاں ہیں۔ مزید محنت کریں۔";
+            tag.style.color = "var(--danger)";
+            score.style.color = "var(--danger)";
+        } else {
+            document.getElementById('student-title').innerText = uName + " - PASSED ✅";
+            tag.innerText = "شاباش! آپ نے بہت اچھا پرفارم کیا۔";
+            tag.style.color = "var(--success)";
+            score.style.color = "var(--success)";
+        }
+        score.innerText = points + "/" + quizItems.length;
+    }
+
+    function showCorrections() {
+        document.getElementById('result-screen').classList.add('hidden');
+        document.getElementById('review-screen').classList.remove('hidden');
+        const list = document.getElementById('review-list');
+        list.innerHTML = errors.length === 0 ? "<h3 style='text-align:center; color:green;'>کوئی غلطی نہیں! آپ جینیئس ہیں۔</h3>" : "";
+        
+        errors.forEach(item => {
+            list.innerHTML += `<div class="review-card"><strong>${item.q}</strong><br>آپ کا جواب: ${item.u} | <span style="color:green; font-weight:bold;">صحیح جواب: ${item.c}</span></div>`;
+        });
+    }
+</script>
 </body>
 </html>
